@@ -1,10 +1,13 @@
 package com.finn.util;
 
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.Collections;
+import java.util.Scanner;
 
 /*
  * @description:
@@ -13,10 +16,36 @@ import java.util.Collections;
  */
 public class MybatisPlusGeneratorUtils {
 
+    /**
+     * <p>
+     * 读取控制台内容
+     * </p>
+     */
+    public static String scanner(String tip) {
+        Scanner scanner = new Scanner(System.in);
+        StringBuilder help = new StringBuilder();
+        help.append("请输入" + tip + "：");
+        System.out.println(help.toString());
+        if (scanner.hasNext()) {
+            String ipt = scanner.next();
+            if (StringUtils.isNotBlank(ipt)) {
+                return ipt;
+            }
+        }
+        throw new MybatisPlusException("请输入正确的" + tip + "！");
+    }
+
+    /*
+    * @Description: 自动生成package和类
+    * @Param: [args]
+    * @return:  null
+    * @Author: Finn
+    * @Date: 2022/1/20
+    */
     public static void main(String[] args) {
         String moduleName = "blog-web";
 
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/myblog?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8",
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8",
                 "root",
                 "admin")
                 .globalConfig(builder -> {
@@ -27,7 +56,7 @@ public class MybatisPlusGeneratorUtils {
                 })
                 .packageConfig(builder -> {
                     builder.parent("com.finn") // 设置父包名
-//                            .moduleName("blog_web") // 设置父包模块名
+//                            .moduleName("blog-web") // 设置父包模块名
                             .entity("entity")
                             .service("service")
                             .serviceImpl("serviceImpl")

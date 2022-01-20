@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,6 +22,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@ToString
 @Accessors(chain = true)
 @TableName("tb_user")
 @ApiModel(value = "User对象", description = "")

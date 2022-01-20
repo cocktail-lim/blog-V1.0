@@ -1,7 +1,7 @@
 package com.finn.config;
 
 import com.finn.service.serviceImpl.UserDetailsServiceImpl;
-import com.finn.handler.auth.MyUsernamePasswordAuthenticationHandler;
+import com.finn.handler.auth.MyUsernamePasswordAuthenticationFilterHandler;
 import com.finn.handler.auth.MyAuthenticationFailureHandler;
 import com.finn.handler.auth.MyAuthenticationSuccessHandler;
 import io.swagger.annotations.Api;
@@ -28,7 +28,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @Configuration
 @Api(value = "Spring Security配置类")
-public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 从 FilterSecurityInterceptor 类开始鉴权流程
 
     @Autowired
@@ -50,12 +50,11 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 //处理跨域请求中的Preflight请求
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login")  // 指定到登陆界面
-//                .successHandler() // 成功后处理办法
-//                .failureHandler() // 失败后处理办法
         ;
 //        http.csrf().disable().exceptionHandling(); // @EnableWebSecurity 会使csrf保护生效
         http.addFilterAt(myUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 替换spring security的 filter
@@ -81,12 +80,12 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     * @Date: 2022/1/18
     */
     @Bean
-    public MyUsernamePasswordAuthenticationHandler myUsernamePasswordAuthenticationFilter() throws Exception {
-        MyUsernamePasswordAuthenticationHandler myUsernamePasswordAuthenticationHandler = new MyUsernamePasswordAuthenticationHandler();
-        myUsernamePasswordAuthenticationHandler.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler); // 验证成功
-        myUsernamePasswordAuthenticationHandler.setAuthenticationFailureHandler(myAuthenticationFailureHandler);  // 验证失败
-        myUsernamePasswordAuthenticationHandler.setAuthenticationManager(authenticationManagerBean());
-        return myUsernamePasswordAuthenticationHandler;
+    public MyUsernamePasswordAuthenticationFilterHandler myUsernamePasswordAuthenticationFilter() throws Exception {
+        MyUsernamePasswordAuthenticationFilterHandler myUsernamePasswordAuthenticationFilterHandler = new MyUsernamePasswordAuthenticationFilterHandler();
+        myUsernamePasswordAuthenticationFilterHandler.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler); // 验证成功
+        myUsernamePasswordAuthenticationFilterHandler.setAuthenticationFailureHandler(myAuthenticationFailureHandler);  // 验证失败
+        myUsernamePasswordAuthenticationFilterHandler.setAuthenticationManager(authenticationManagerBean());
+        return myUsernamePasswordAuthenticationFilterHandler;
     }
 
     /*

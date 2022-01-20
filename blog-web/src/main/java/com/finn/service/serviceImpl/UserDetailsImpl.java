@@ -1,4 +1,4 @@
-package com.finn.entity;
+package com.finn.service.serviceImpl;
 
 import com.finn.entity.User;
 import lombok.*;
@@ -14,12 +14,18 @@ import java.util.Set;
  * @create: 2022-01-16-11-18
  */
 
+/*
+* getAuthorities: 获取用户权限，一般情况下获取到的是用户的角色信息。
+* getCredentials: 获取证明用户认证的信息，通常情况下获取到的是密码等信息。
+* getDetails: 获取用户的额外信息，（这部分信息可以是我们的用户表中的信息）。
+* getPrincipal: 获取用户身份信息，在未认证的情况下获取到的是用户名，在已认证的情况下获取到的是 UserDetails。
+* */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MyUserDetails implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private User user;
     private String password;
     private String username;

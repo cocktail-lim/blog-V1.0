@@ -14,10 +14,10 @@
 <!--        as r_id-->
 <!--        on tb_role.id = r_id.role_id;-->
 <!--    </select>   -->
-    <select id="getUserRolesByUsername" resultType="java.lang.String">
+    <select id="listUserRolesByUsername" resultType="java.lang.String">
         select role_name
         from tb_user, tb_role_user, tb_role
-        where tb_user.username = ${username}
+        where tb_user.username = #{username}
         and tb_role_user.user_id = tb_user.id
         and tb_role.id = tb_role_user.role_id;
     </select>

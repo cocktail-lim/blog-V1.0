@@ -17,14 +17,8 @@ import java.util.List;
 @Service
 public interface UserService extends IService<User> {
 
-    /*
-    * @Description: 根据用户名获取用户的角色
-    * @Param: []
-    * @return:
-    * @Author: Finn
-    * @Date: 2022/1/18
-    */
-    List<String> listUserRolesByUsername(String name);
+    boolean checkLogin(String username, String password);
 
+    List<String> listUserRolesByUsername(String name);
 
 }

@@ -2,7 +2,6 @@ package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.finn.entity.MyUserDetails;
 import com.finn.entity.User;
 import com.finn.exception.MyRuntimeException;
 import com.finn.service.UserService;
@@ -19,7 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 /*
- * @description:
+ * @description: 从数据库里查询到用户信息和权限信息并封装成UserDetails返回
+ * @return: UserDetails的是实现类，UserDetailsImpl
  * @author: Finn
  * @create: 2022-01-16-11-16
  */
@@ -30,20 +30,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         if(StringUtils.isBlank(username))
             throw new MyRuntimeException("用户名为空！");
-        // 获取数据库里的username
+
+        // 获取数据库里的user信息
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("username", username);
         User user = userService.getOne(userQueryWrapper);
+        System.out.println(user);
         if(user != null) {
-//            System.out.println("匹配到数据库中的：" + user.toString());
-            // 用数据库里的信息来验证登录即可
-            MyUserDetails myUserDetails = new MyUserDetails();
-            myUserDetails.setUser(user);
-            myUserDetails.setUsername(user.getUsername());
-            myUserDetails.setPassword("{noop}" + user.getPassword()); // noop表示未加密状态
+            // 把数据库里的信息拿出来封装成 UserDetails
+            UserDetailsImpl userDetailsImpl = new UserDetailsImpl();
+            userDetailsImpl.setUser(user);
+            userDetailsImpl.setUsername(user.getUsername());
+            userDetailsImpl.setPassword("{noop}" + user.getPassword()); // noop表示未加密状态
 
             List<String> roles = userService.listUserRolesByUsername(username); //获取当前用户的角色集
             SimpleGrantedAuthority authority;
@@ -53,10 +54,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 authorities.add(authority);
             }
 
-            myUserDetails.setAuthorities(authorities);
-            return myUserDetails;
+            userDetailsImpl.setAuthorities(authorities);
+            return userDetailsImpl;
         } else
             throw new UsernameNotFoundException("用户不存在！");
-//            throw new MyRuntimeException(ResultInfo.ACCESS_DENIED);
     }
 }

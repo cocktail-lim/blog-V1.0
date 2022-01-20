@@ -21,6 +21,18 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     /*
+    * @Description: 登录检查
+    * @Param: [username, password]
+    * @return:
+    * @Author: Finn
+    * @Date: 2022/1/20
+    */
+    @Override
+    public boolean checkLogin(String username, String password) {
+        return true;
+    }
+
+    /*
     * @Description: 返回所有角色
     * @Param: []
     * @return: List<String>
@@ -31,4 +43,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<String> listUserRolesByUsername(String username) {
         return this.baseMapper.listUserRolesByUsername(username);
     }
+
 }

@@ -1,8 +1,7 @@
 package com.finn.handler.auth;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.finn.entity.MyUserDetails;
+import com.finn.service.serviceImpl.UserDetailsImpl;
 import com.finn.entity.User;
 import com.finn.enums.ResultEnums;
 import com.finn.util.ResultUtils;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,26 +37,18 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
-        Object principal = authentication.getPrincipal();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal(); // 从已认证的Authentication中获得UserDetails
         httpServletResponse.setContentType("application/json;");
-        User user;
-        if(principal instanceof UserDetails) {
-            MyUserDetails myUserDetails = (MyUserDetails) principal;
-            user = myUserDetails.getUser();
-            Collection<? extends GrantedAuthority> authorities = myUserDetails.getAuthorities();
-            List<String> roles = new ArrayList<>();
-            for(GrantedAuthority grantedAuthority : authorities) {
-                roles.add(grantedAuthority.getAuthority());
-            }
-            httpServletResponse.getWriter().write(
-                    JSON.toJSONString(ResultUtils.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("user", user))
-            );
+
+//        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) principal;
+//        user = userDetailsImpl.getUser();
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        List<String> roles = new ArrayList<>();
+        for(GrantedAuthority grantedAuthority : authorities) {
+            roles.add(grantedAuthority.getAuthority());
         }
-//        httpServletResponse.getWriter()
-//                .write(
-//                        JSON.toJSONString(
-//                                new Result<UserInfoDTO>(true, StatusConst.OK, "登录成功！", userLoginDTO)
-//                        )
-//                );
+        httpServletResponse.getWriter().write(
+                JSON.toJSONString(ResultUtils.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("User: ", user))
+        );
     }
 }
