@@ -1,4 +1,4 @@
-package com.finn.auth;
+package com.finn.entity;
 
 import com.finn.entity.User;
 import lombok.*;

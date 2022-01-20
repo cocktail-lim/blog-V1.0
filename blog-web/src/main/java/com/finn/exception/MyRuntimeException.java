@@ -24,4 +24,8 @@ public class MyRuntimeException extends RuntimeException {
         this.message = resultEnums.getMessage();
     }
 
+    public MyRuntimeException(String message) {
+        super(message);
+    }
+
 }

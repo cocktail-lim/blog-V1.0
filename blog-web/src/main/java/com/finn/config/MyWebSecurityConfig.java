@@ -1,9 +1,9 @@
 package com.finn.config;
 
-import com.finn.auth.MyUserDetailsService;
-import com.finn.handler.MyUsernamePasswordAuthenticationHandler;
-import com.finn.handler.MyAuthenticationFailureHandler;
-import com.finn.handler.MyAuthenticationSuccessHandler;
+import com.finn.service.serviceImpl.UserDetailsServiceImpl;
+import com.finn.handler.auth.MyUsernamePasswordAuthenticationHandler;
+import com.finn.handler.auth.MyAuthenticationFailureHandler;
+import com.finn.handler.auth.MyAuthenticationSuccessHandler;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /*
  * @description: Spring Security 配置类
@@ -28,14 +32,14 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 从 FilterSecurityInterceptor 类开始鉴权流程
 
     @Autowired
-    private MyUserDetailsService myUserDetailService;
+    private UserDetailsServiceImpl myUserDetailService;
     @Autowired
     private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 
     /*
-    * @Description:  配置http
+    * @Description:  配置http，这里开启了跨域请求
     * @Param: [http]
     * @return: null
     * @Author: Finn
@@ -43,13 +47,17 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.cors().and().csrf().disable().authorizeRequests()
+                //处理跨域请求中的Preflight请求
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
                 .loginProcessingUrl("/login")  // 指定到登陆界面
 //                .successHandler() // 成功后处理办法
 //                .failureHandler() // 失败后处理办法
         ;
-        http.csrf().disable().exceptionHandling(); // @EnableWebSecurity 会使csrf保护生效
+//        http.csrf().disable().exceptionHandling(); // @EnableWebSecurity 会使csrf保护生效
         http.addFilterAt(myUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 替换spring security的 filter
     }
 
@@ -81,5 +89,25 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
         return myUsernamePasswordAuthenticationHandler;
     }
 
+    /*
+    * @Description: 跨域过滤器
+    * @Param: []
+    * @return: 一个跨域过滤器
+    * @Author: Finn
+    * @Date: 2022/1/19
+    */
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(source);
+    }
 
 }

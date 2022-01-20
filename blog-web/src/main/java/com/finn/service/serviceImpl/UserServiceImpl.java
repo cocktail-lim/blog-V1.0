@@ -28,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     * @Date: 2022/1/18
     */
     @Override
-    public List<String> getUserRolesByUsername() {
-        return null;
+    public List<String> listUserRolesByUsername(String username) {
+        return this.baseMapper.listUserRolesByUsername(username);
     }
 }

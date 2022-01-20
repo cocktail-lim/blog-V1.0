@@ -24,5 +24,7 @@ public interface UserService extends IService<User> {
     * @Author: Finn
     * @Date: 2022/1/18
     */
-    List<String> getUserRolesByUsername();
+    List<String> listUserRolesByUsername(String name);
+
+
 }

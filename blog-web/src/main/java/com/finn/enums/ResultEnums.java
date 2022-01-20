@@ -5,9 +5,11 @@ public enum ResultEnums {
     * 枚举类的对象
     * */
     GLOBAL_ERROR("101", "Sorry, 全局异常，系统繁忙。"),
-    NOT_FOUND("404", "Sorry, 页面没有找到！"),
     SUCCESS("200", "Congratulations, 操作成功！"),
-    ACCESS_DENIED("401", "Sorry to say, 身份验证失败！")
+    ACCESS_DENIED("401", "Sorry to say, 身份验证失败！"),
+    NOT_FOUND("404", "Sorry, 页面没有找到！"),
+    LOGIN_SUCCESS("666", "Login successfully!"),
+    LOGIN_FAILED("667", "Login fail!")
     ;
     /*
     * 申明枚举类的对象属性

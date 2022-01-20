@@ -1,4 +1,4 @@
-package com.finn.handler;
+package com.finn.handler.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
@@ -28,17 +28,12 @@ public class MyUsernamePasswordAuthenticationHandler extends UsernamePasswordAut
     // 重写方法，使其支持处理 json 数据
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-//        if(request == null) System.out.println("null");
-//        else System.out.println("not null");
-//        System.out.println(request.getContextPath());
 
         Map<String, String> map = new HashMap<>(); //存入 username 和 password
         ObjectMapper objectMapper = new ObjectMapper();
-
-        System.out.println("ContentType: " + request.getContentType());
-        System.out.println("RequestURL: " + request.getRemoteAddr());
         if(request.getContentType().equals("application/json;charset=UTF-8")
                 || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
+
             if(!request.getMethod().equals("POST")) {
                 throw new AuthenticationServiceException(
                         "Authentication Method is not supported: " + request.getMethod());
@@ -75,9 +70,8 @@ public class MyUsernamePasswordAuthenticationHandler extends UsernamePasswordAut
                 this.setDetails(request, authRequest);
                 return this.getAuthenticationManager().authenticate(authRequest);
             }
-            return null;
         }
 
-        return null;
+        return this.attemptAuthentication(request, response);
     }
 }

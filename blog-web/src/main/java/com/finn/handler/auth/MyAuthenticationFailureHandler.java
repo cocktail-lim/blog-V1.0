@@ -1,5 +1,8 @@
-package com.finn.handler;
+package com.finn.handler.auth;
 
+import com.alibaba.fastjson.JSON;
+import com.finn.enums.ResultEnums;
+import com.finn.util.ResultUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -19,6 +22,9 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        System.out.println("登录验证失败！");
+        httpServletResponse.setContentType("application/json;");
+        httpServletResponse.getWriter().write(
+                JSON.toJSONString(ResultUtils.error().codeAndMessage(ResultEnums.LOGIN_FAILED))
+        );
     }
 }
