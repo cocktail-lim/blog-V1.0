@@ -44,6 +44,7 @@ public class MybatisPlusGeneratorUtils {
     */
     public static void main(String[] args) {
         String moduleName = "blog-web";
+        String tableName = scanner("表名");
 
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8",
                 "root",
@@ -51,7 +52,7 @@ public class MybatisPlusGeneratorUtils {
                 .globalConfig(builder -> {
                     builder.author("finn") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
-                            .fileOverride() // 覆盖已生成文件
+//                            .fileOverride() // 覆盖已生成文件
                             .outputDir("E:\\myblog\\myblog-v1.0\\" + moduleName + "\\src\\main\\java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
@@ -66,7 +67,7 @@ public class MybatisPlusGeneratorUtils {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "E:\\myblog\\myblog-v1.0\\" + moduleName + "\\src\\main\\resources")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("tb_user", "tb_role") // 设置需要生成的表名
+                    builder.addInclude(tableName) // 设置需要生成的表名
                             .addTablePrefix("tb_"); // 设置过滤表前缀，生成的entity等名字过滤前缀
                 })
                 .strategyConfig(builder -> {
