@@ -2,12 +2,12 @@ package com.finn.controller;
 
 
 import com.finn.enums.ResultEnums;
+import com.finn.service.MenuService;
+import com.finn.util.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -23,13 +23,14 @@ import java.lang.annotation.RetentionPolicy;
  */
 @RestController
 @Api(tags = "菜单展示模块")
-@RequestMapping(value = "/menu")
+@RequestMapping(value = "/api/admin")
 public class MenuController {
+    @Autowired
+    MenuService menuService;
 
-    @GetMapping("/getMenuList") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
-    @ApiOperation(value = "获取展示菜单列表")
-    public ResultEnums getMenuByRoleName(){
-
-        return null;
+    @ApiOperation(value = "根据角色获取展示菜单列表")
+    @GetMapping("/menus") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
+    public ResultUtils getMenuByRoleName(@RequestParam String roleName){
+        return new ResultUtils().success().codeAndMessage(ResultEnums.SUCCESS).data("menuList", menuService.getMenuListByRoleName(roleName));
     }
 }

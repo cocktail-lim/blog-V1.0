@@ -1,4 +1,4 @@
-package com.finn.handler.auth;
+package com.finn.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.finn.enums.ResultEnums;

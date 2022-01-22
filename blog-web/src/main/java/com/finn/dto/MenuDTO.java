@@ -33,21 +33,19 @@ public class MenuDTO {
     @ApiModelProperty(value = "//菜单的url")
     private String menuUrl;
 
-    @ApiModelProperty(value = "//菜单的父ID")
-    private Integer parentId;
-
-    @ApiModelProperty(value = "//菜单排序")
-    private Integer menuSort;
-
-    @ApiModelProperty(value = "//描述")
-    private String description;
+//    @ApiModelProperty(value = "//菜单的父ID")
+//    private Integer parentId;
+//
+//    @ApiModelProperty(value = "//菜单排序")
+//    private Integer menuSort;
+//
+//    @ApiModelProperty(value = "//描述")
+//    private String description;
 
     @ApiModelProperty(value = "//菜单图标")
     private String menuIcon;
 
     @ApiModelProperty(value = "//二级菜单目录")
     private List<MenuDTO> children = new ArrayList<>();
-
-
 
 }

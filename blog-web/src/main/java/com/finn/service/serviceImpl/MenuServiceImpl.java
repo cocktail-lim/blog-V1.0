@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
-
     /*
     * @Description: 获取role能看到的菜单
     * @Param: [roleName]
@@ -35,14 +34,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     */
     @Override
     public List<MenuDTO> getMenuListByRoleName(String roleName) {
-
         // 要返回给前端的结果
-        List<MenuDTO> returnMenuList;
+        List<MenuDTO> returnMenuDTOList;
         // 获取所有的Menu
         List<Menu> menuList = this.baseMapper.getMenuList(roleName);
         // 存放子菜单
         HashMap<Integer, List<Menu>> childrenMap = new HashMap<>();
-        // 获取子菜单
+        // 生成子菜单List并存入HashMap
         for(Menu menu : menuList) {
             if(menu.getParentId() != 0){
                 int parentId = menu.getParentId();
@@ -52,59 +50,20 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                                 .filter(item -> item.getParentId() == parentId)
                                 .collect(Collectors.toList())
                 );
-
             }
-
         }
 
-
-
-
-
-
-        menuList.stream()
-                .filter((Menu::getParentId)!=0)
-                .
-
-
-
-
-        // 先把父菜单放入
-        returnMenuList = this.convertMenuListToMenuDTOList(
-                menuList.stream()
-                .filter(
-                        item -> item.getParentId() == 0 || Objects.isNull(item.getParentId())
-                )
-                .collect(Collectors.toList())
-        )
-        ;
-
-
-
-
-
-        // 获取子菜单
-        List<MenuDTO> childrenMenuDTOList = this.convertMenuListToMenuDTOList(this.listChildrenMenuSorted(menuList));
-        List
-
-        HashMap<Integer, List<MenuDTO>> childrenMenuDTOMap = new HashMap<>();
-        for(MenuDTO dto :childrenMenuDTOList) {
-            childrenMenuDTOMap.put(dto.getMenuId(), )
-
-        }
-//
-//        List<MenuDTO> childrenMenuDTOList;
-
-        // 把子菜单过滤出好来后赋值给每个父栏目的children
-        menuList.stream()
-                .filter(item -> {
-                    return item.getParentId() == 0; // 拿到父节点
-                })
-                .map(parent -> {
-                })
+        // 把父菜单放入
+        returnMenuDTOList = this.convertMenuListToMenuDTOList(
+                menuList
+                .stream()
+                .filter(item -> item.getParentId() == 0 || Objects.isNull(item.getParentId()))
+                .collect(Collectors.toList()))
+                .stream()
+                .map(item -> item.setChildren(this.convertMenuListToMenuDTOList(childrenMap.getOrDefault(item.getMenuId(), Collections.emptyList()))))
                 .collect(Collectors.toList());
 
-        return returnMenuList;
+        return returnMenuDTOList;
     }
 
     /*
@@ -129,23 +88,24 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     * @Date: 2022/1/22 
     */
     public List<MenuDTO> convertMenuListToMenuDTOList(List<Menu> listMenu){
-        MenuDTO menuDTO = new MenuDTO();
+        if (listMenu == null)
+            return null;
         List<MenuDTO> listMenuDTO = new ArrayList<>();
         listMenu.stream()
-                .filter(Objects::isNull)
-                .map(item -> {
+                .filter(Objects::nonNull)
+                .forEach(item -> {
+                    MenuDTO menuDTO = new MenuDTO();
                     menuDTO.setMenuId(item.getMenuId())
-                    .setDescription(item.getDescription())
+//                    .setDescription(item.getDescription())
                     .setMenuIcon(item.getMenuIcon())
                     .setMenuName(item.getMenuName())
-                    .setMenuSort(item.getMenuSort())
+//                    .setMenuSort(item.getMenuSort())
                     .setMenuUrl(item.getMenuUrl())
-                    .setParentId(item.getParentId())
+//                    .setParentId(item.getParentId())
                     ;
                     listMenuDTO.add(menuDTO);
-                    return item;
                 });
-        listMenuDTO.sort(Comparator.comparing(MenuDTO::getMenuSort));
+//        listMenuDTO.sort(Comparator.comparing(MenuDTO::getMenuSort));
         return listMenuDTO;
     }
 

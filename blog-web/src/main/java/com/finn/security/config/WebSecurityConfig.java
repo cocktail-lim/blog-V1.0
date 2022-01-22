@@ -1,9 +1,9 @@
-package com.finn.config;
+package com.finn.security.config;
 
-import com.finn.service.serviceImpl.UserDetailsServiceImpl;
-import com.finn.handler.auth.MyUsernamePasswordAuthenticationFilterHandler;
-import com.finn.handler.auth.MyAuthenticationFailureHandler;
-import com.finn.handler.auth.MyAuthenticationSuccessHandler;
+import com.finn.security.UserDetailsServiceImpl;
+import com.finn.security.handler.MyUsernamePasswordAuthenticationFilterHandler;
+import com.finn.security.handler.MyAuthenticationFailureHandler;
+import com.finn.security.handler.MyAuthenticationSuccessHandler;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 //处理跨域请求中的Preflight请求
+                .antMatchers("/api/admin/menus").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest()
                 .authenticated()

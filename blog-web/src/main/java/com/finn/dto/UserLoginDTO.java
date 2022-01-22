@@ -12,6 +12,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /*
  * @description: 返回给前端的后台用户登录信息
@@ -44,6 +45,6 @@ public class UserLoginDTO {
     @ApiModelProperty("是否禁言 0：不禁言 1：禁言")
     private Boolean isSilence;
 
-    @ApiModelProperty("token")
-    private String token;
+//    @ApiModelProperty("token")
+//    private List<String> token;
 }

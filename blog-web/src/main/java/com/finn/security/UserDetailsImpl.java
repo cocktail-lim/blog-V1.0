@@ -1,4 +1,4 @@
-package com.finn.service.serviceImpl;
+package com.finn.security;
 
 import com.finn.entity.User;
 import lombok.*;

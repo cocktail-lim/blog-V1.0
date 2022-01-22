@@ -1,4 +1,4 @@
-package com.finn.handler.auth;
+package com.finn.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finn.exception.AuthenticationException;

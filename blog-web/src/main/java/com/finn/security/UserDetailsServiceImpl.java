@@ -1,4 +1,4 @@
-package com.finn.service.serviceImpl;
+package com.finn.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;

@@ -36,12 +36,12 @@ public class TestController {
 //    }
 
 //    @CrossOrigin(origins = {"10.12.37.207:3000"})
-//    @ApiOperation("测试接口")
-//    @PostMapping("/login")
-//    public ResultUtils test(){
-////        User user = UserService.getUserById(1);
-////        System.out.println(user.toString());
-//        return ResultUtils.success().codeAndMessage("200", "王宁傻逼");
-//    }
+    @ApiOperation("测试接口")
+    @GetMapping("/api/test")
+    public ResultUtils test(){
+//        User user = UserService.getUserById(1);
+//        System.out.println(user.toString());
+        return ResultUtils.success().codeAndMessage("200", "王宁傻逼");
+    }
 
 }
