@@ -28,11 +28,14 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "role_id", type = IdType.AUTO)
+    @ApiModelProperty("用户表主键")
+    private Integer roleId;
 
+    @ApiModelProperty("角色名")
     private String roleName;
 
+    @ApiModelProperty("创建时间")
     private LocalDateTime createTime;
 
 

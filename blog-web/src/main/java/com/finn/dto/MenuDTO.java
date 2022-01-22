@@ -1,34 +1,27 @@
-package com.finn.entity;
+package com.finn.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.List;
-
-import com.finn.dto.MenuDTO;
-import io.swagger.annotations.ApiModel;
+import com.finn.entity.Menu;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author finn
- * @since 2022-01-20
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * @description: 把 Menu 返回给前端
+ * @author: Finn
+ * @create: 2022-01-21-12-58
  */
 @Getter
 @Setter
+@ToString
 @Accessors(chain = true)
-@TableName("tb_menu")
-@ApiModel(value = "Menu对象", description = "后台管理左侧菜单")
-public class Menu implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class MenuDTO {
 
     @ApiModelProperty(value = "//后台菜单id")
     @TableId(value = "menu_id", type = IdType.AUTO)
@@ -51,5 +44,10 @@ public class Menu implements Serializable {
 
     @ApiModelProperty(value = "//菜单图标")
     private String menuIcon;
+
+    @ApiModelProperty(value = "//二级菜单目录")
+    private List<MenuDTO> children = new ArrayList<>();
+
+
 
 }

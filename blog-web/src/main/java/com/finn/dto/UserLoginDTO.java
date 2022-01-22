@@ -1,10 +1,9 @@
-package com.finn.entity;
+package com.finn.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,23 +11,19 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author finn
- * @since 2022-01-18
+import java.time.LocalDateTime;
+
+/*
+ * @description: 返回给前端的后台用户登录信息
+ * @author: Finn
+ * @create: 2022-01-21-15-28
  */
 @Getter
 @Setter
 @ToString
 @Accessors(chain = true)
-@TableName("tb_user")
-@ApiModel(value = "User对象", description = "")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@ApiModel(value = "UserLoginDTO", description = "返回给前端的user信息")
+public class UserLoginDTO {
 
     @TableId(value = "user_id", type = IdType.AUTO)
     @ApiModelProperty("用户表主键id")
@@ -36,9 +31,6 @@ public class User implements Serializable {
 
     @ApiModelProperty("用户名")
     private String username;
-
-    @ApiModelProperty("密码")
-    private String password;
 
     @ApiModelProperty("昵称")
     private String nickname;
@@ -49,18 +41,9 @@ public class User implements Serializable {
     @ApiModelProperty("个人简介")
     private String intro;
 
-    @ApiModelProperty("描述")
-    private String description;
-
-    @ApiModelProperty("用户创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty("更新时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty("是否删除")
-    private Boolean isDelete;
-
     @ApiModelProperty("是否禁言 0：不禁言 1：禁言")
     private Boolean isSilence;
+
+    @ApiModelProperty("token")
+    private String token;
 }

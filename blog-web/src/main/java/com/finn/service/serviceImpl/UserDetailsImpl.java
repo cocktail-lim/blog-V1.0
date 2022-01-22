@@ -27,8 +27,8 @@ import java.util.Set;
 @ToString
 public class UserDetailsImpl implements UserDetails {
     private User user;
-    private String password;
     private String username;
+    private String password;
     private Set<GrantedAuthority> authorities;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;

@@ -8,7 +8,7 @@ public enum ResultEnums {
     SUCCESS("200", "Congratulations, 操作成功！"),
     ACCESS_DENIED("401", "Sorry to say, 身份验证失败！"),
     NOT_FOUND("404", "Sorry, 页面没有找到！"),
-    LOGIN_SUCCESS("666", "Login successfully!"),
+    LOGIN_SUCCESS("200", "Login successfully!"),
     LOGIN_FAILED("667", "Login fail!")
     ;
     /*

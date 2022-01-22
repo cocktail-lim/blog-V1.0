@@ -1,6 +1,7 @@
 package com.finn.handler.auth;
 
 import com.alibaba.fastjson.JSON;
+import com.finn.dto.UserLoginDTO;
 import com.finn.service.serviceImpl.UserDetailsImpl;
 import com.finn.entity.User;
 import com.finn.enums.ResultEnums;
@@ -37,18 +38,27 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
-        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal(); // 从已认证的Authentication中获得UserDetails
-        httpServletResponse.setContentType("application/json;");
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal(); // 从已认证的Authentication中获得UserDetails
+        UserLoginDTO user = new UserLoginDTO();
+        //
+        user.setUserId(userDetails.getUser().getUserId())
+                .setUsername(userDetails.getUser().getUsername())
+                .setNickname(userDetails.getUser().getNickname())
+                .setAvatar(userDetails.getUser().getAvatar())
+                .setIntro(userDetails.getUser().getIntro())
+                .setIsSilence(userDetails.getUser().getIsSilence())
+                .setToken("test");
 
 //        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) principal;
 //        user = userDetailsImpl.getUser();
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         List<String> roles = new ArrayList<>();
         for(GrantedAuthority grantedAuthority : authorities) {
             roles.add(grantedAuthority.getAuthority());
         }
         httpServletResponse.getWriter().write(
-                JSON.toJSONString(ResultUtils.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("User: ", user))
+                JSON.toJSONString(ResultUtils.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("userInfo", user))
         );
     }
 }

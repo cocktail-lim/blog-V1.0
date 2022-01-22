@@ -18,7 +18,7 @@
         select role_name
         from tb_user, tb_role_user, tb_role
         where tb_user.username = #{username}
-        and tb_role_user.user_id = tb_user.id
-        and tb_role.id = tb_role_user.role_id;
+        and tb_role_user.user_id = tb_user.user_id
+        and tb_role.role_id = tb_role_user.role_id;
     </select>
 </mapper>
