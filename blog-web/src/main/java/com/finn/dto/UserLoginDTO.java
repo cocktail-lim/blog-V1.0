@@ -46,5 +46,5 @@ public class UserLoginDTO {
     private Boolean isSilence;
 
 //    @ApiModelProperty("token")
-//    private List<String> token;
+//    private Token token;
 }

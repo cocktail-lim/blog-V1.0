@@ -2,21 +2,28 @@ package com.finn.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.finn.dto.UserLoginDTO;
+import com.finn.entity.Token;
+import com.finn.security.TokenUtils;
 import com.finn.security.UserDetailsImpl;
 import com.finn.enums.ResultEnums;
 import com.finn.util.ResultUtils;
+import org.apache.tomcat.util.http.ResponseUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.sql.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /*
  * @description: 用户认证成功处理器
@@ -25,6 +32,8 @@ import java.util.List;
  */
 @Component
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
+
+    TokenUtils tokenUtils;
 
     /*
     * @Description: 给前端返回数据
@@ -36,18 +45,24 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
+        tokenUtils = new TokenUtils();
+        // 设置返回头
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal(); // 从已认证的Authentication中获得UserDetails
+        // 初始化返回内容
+//        HashMap<String, Object> loginInfo = new HashMap<>();
+        List<Object> loginInfo = new ArrayList<>();
+        // 从已认证的Authentication中获得UserDetails
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         UserLoginDTO user = new UserLoginDTO();
 
-//        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) principal;
-//        user = userDetailsImpl.getUser();
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        List<String> roles = new ArrayList<>();
+        Set<String> roles = new HashSet<>();
 
         for(GrantedAuthority grantedAuthority : authorities) {
             roles.add(grantedAuthority.getAuthority());
         }
+
+        loginInfo.add(tokenUtils.creatToken(roles));
 
         user.setUserId(userDetails.getUser().getUserId())
                 .setUsername(userDetails.getUser().getUsername())
@@ -57,8 +72,10 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
                 .setIsSilence(userDetails.getUser().getIsSilence());
 //                .setToken(roles);
 
+        loginInfo.add(user);
+
         httpServletResponse.getWriter().write(
-                JSON.toJSONString(ResultUtils.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("userInfo", user))
+                JSON.toJSONString(ResultUtils.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("userInfo", loginInfo))
         );
     }
 }

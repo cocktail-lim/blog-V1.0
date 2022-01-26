@@ -30,6 +30,7 @@
         <jackson.version>2.9.6</jackson.version>
         <freemarker.version>2.3.31</freemarker.version>
         <fastjson.version>1.2.79</fastjson.version>
+        <jwt.version>3.18.3</jwt.version>
     </properties>
 
     <!--统一依赖管理-->
@@ -92,6 +93,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
             </dependency>
 
         </dependencies>
