@@ -10,11 +10,13 @@ It is developed by Finn.
 
 ## Admin System
 
+<font color="red" >*表示必须</font>
+
 ### 获取菜单信息
 
 - **url**: /api/admin/getMenus
 - **param**：
-  - roleName：用户的角色（如管理员）
+  - *roleName：用户的角色（如管理员）
 
 ### 用户管理
 

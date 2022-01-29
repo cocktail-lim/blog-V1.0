@@ -47,21 +47,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
-                //处理跨域请求中的Preflight请求
+        http.formLogin().loginProcessingUrl("/login");  // 指定到登陆界面
+        http.cors()
+                .and()
+                .authorizeRequests()//处理跨域请求中的Preflight请求
                 .antMatchers("/api/admin/getMenus").permitAll()
                 .antMatchers("/api/admin/userList/getRoleSelectList").permitAll()
                 .antMatchers("/api/admin/userList/getUserList").permitAll()
                 .antMatchers("/api/admin/userList/getUserListTest").permitAll()
-//                .antMatchers("/api/admin/userList/getUserByCondition").permitAll()
-                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest)
+                .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginProcessingUrl("/login")  // 指定到登陆界面
-        ;
-//        http.csrf().disable().exceptionHandling(); // @EnableWebSecurity 会使csrf保护生效
+                .authenticated(); // 需要认证
+        http.csrf().disable().exceptionHandling(); // @EnableWebSecurity 会使csrf保护生效
         http.addFilterAt(myUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 替换spring security的 filter
     }
 
