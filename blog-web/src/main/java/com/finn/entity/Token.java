@@ -1,5 +1,7 @@
 package com.finn.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,11 +17,16 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
+@ApiModel(value = "Token", description = "Token")
 public class Token {
 
+    @ApiModelProperty("Token ID")
     private Integer id;
-//    private String openId;
+
+    @ApiModelProperty("用户角色")
     private Set<String> role;
+
+    @ApiModelProperty("上次登录时间")
     private Date lastLogin;
 
 }

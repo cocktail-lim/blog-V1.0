@@ -23,7 +23,7 @@ import java.util.List;
 @Setter
 @ToString
 @Accessors(chain = true)
-@ApiModel(value = "UserLoginDTO", description = "返回给前端的user信息")
+@ApiModel(value = "UserLoginDTO", description = "用户登录信息")
 public class UserLoginDTO {
 
     @TableId(value = "user_id", type = IdType.AUTO)

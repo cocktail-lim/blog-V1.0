@@ -50,6 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 //处理跨域请求中的Preflight请求
                 .antMatchers("/api/admin/menus").permitAll()
+                .antMatchers("/api/admin/userList/getRoleList").permitAll()
+                .antMatchers("/api/admin/userList/getUserList").permitAll()
+                .antMatchers("/api/admin/userList/getUserListTest").permitAll()
+                .antMatchers("/api/admin/userList/getUserByCondition").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest()
                 .authenticated()

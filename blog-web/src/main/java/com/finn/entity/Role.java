@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("tb_role")
-@ApiModel(value = "Role对象", description = "")
+@ApiModel(value = "Role", description = "用户角色")
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;

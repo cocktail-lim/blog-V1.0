@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.UserMapper">
-<!--    <select id="getUserRolesByUsername" resultType="java.lang.String">-->
-<!--        select role_name-->
-<!--        from tb_role-->
-<!--        join-->
-<!--        (-->
-<!--            select role_id-->
-<!--            from tb_role_user ru-->
-<!--            left join tb_user u-->
-<!--            on ru.user_id = u.id-->
-<!--        )-->
-<!--        as r_id-->
-<!--        on tb_role.id = r_id.role_id;-->
-<!--    </select>   -->
+    <resultMap id="getUserListPage" type="com.finn.dto.UserListPageDTO">
+        <id column="user_id" property="id"/>
+        <result column="avatar" property="avatar" />
+        <result column="role_name" property="roleName" />
+        <result column="nickname" property="nickname" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_silence" property="isSilence" />
+    </resultMap>
+    <resultMap id="getUserByCondition" type="com.finn.dto.UserListPageDTO">
+        <id column="user_id" property="id"/>
+        <result column="avatar" property="avatar" />
+        <result column="role_name" property="roleName" />
+        <result column="nickname" property="nickname" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_silence" property="isSilence" />
+    </resultMap>
     <select id="listUserRolesByUsername" resultType="java.lang.String">
         select role_name
         from tb_user, tb_role_user, tb_role
@@ -21,4 +26,75 @@
         and tb_role_user.user_id = tb_user.user_id
         and tb_role.role_id = tb_role_user.role_id;
     </select>
+    <select id="getUserByCondition" resultType="com.finn.dto.UserListPageDTO">
+        select
+        a.user_id,
+        a.avatar,
+        b.role_name,
+        a.nickname,
+        a.create_time,
+        a.update_time,
+        a.is_silence
+        from  tb_user as a
+        join  tb_role_user as c on a.user_id = c.user_id
+        join  tb_role as b on  c.role_id = b.role_id
+        <where>
+            <if test = "userQueryVO.roleName != null and userQueryVO.roleName != ''">
+                b.role_name = #{userQueryVO.roleName}
+            </if>
+            <if test = "userQueryVO.nickname != null and userQueryVO.nickname != ''">
+                and a.nickname like "%"#{userQueryVO.nickname}"%"
+            </if>
+        </where>
+    </select>
+    <select id="getUserListPage" resultType="com.finn.dto.UserListPageDTO">
+        select
+        a.user_id,
+        a.avatar,
+        b.role_name,
+        a.nickname,
+        a.create_time,
+        a.update_time,
+        a.is_silence
+        from  tb_user as a
+        join  tb_role_user as c on a.user_id =c.user_id
+        join  tb_role as b on  c.role_id = b.role_id
+        <where>
+            <if test = "roleName != null and roleName != ''">
+                b.role_name = #{roleName}
+            </if>
+            <if test = "nickname != null and nickname != ''">
+                and a.nickname like "%"#{nickname}"%"
+            </if>
+        </where>
+    </select>
+    <select id="getUserListTest" resultType="com.finn.dto.UserListPageDTO">
+        select
+        a.nickname,
+        a.avatar,
+        a.create_time,
+        a.update_time,
+        a.is_silence
+        from  tb_user as a
+        join  tb_role_user as c on a.user_id =c.user_id
+        join  tb_role as b on  c.role_id = b.role_id
+        <where>
+            <if test = "nickname != null and nickname != ''">
+                and a.nickname like "%"#{nickname}"%"
+            </if>
+        </where>
+    </select>
+    <!--    <select id="getUserRolesByUsername" resultType="java.lang.String">-->
+    <!--        select role_name-->
+    <!--        from tb_role-->
+    <!--        join-->
+    <!--        (-->
+    <!--            select role_id-->
+    <!--            from tb_role_user ru-->
+    <!--            left join tb_user u-->
+    <!--            on ru.user_id = u.id-->
+    <!--        )-->
+    <!--        as r_id-->
+    <!--        on tb_role.id = r_id.role_id;-->
+    <!--    </select>   -->
 </mapper>

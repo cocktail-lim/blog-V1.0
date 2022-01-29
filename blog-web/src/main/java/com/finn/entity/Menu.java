@@ -25,7 +25,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("tb_menu")
-@ApiModel(value = "Menu对象", description = "后台管理左侧菜单")
+@ApiModel(value = "Menu", description = "后台管理左侧菜单")
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -3,6 +3,8 @@ package com.finn.dto;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.finn.entity.Menu;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,7 @@ import java.util.List;
 @Setter
 @ToString
 @Accessors(chain = true)
+@ApiModel(value = "MenuDTO", description = "菜单目录")
 public class MenuDTO {
 
     @ApiModelProperty(value = "//后台菜单id")
