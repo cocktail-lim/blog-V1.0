@@ -14,9 +14,11 @@ It is developed by Finn.
 
 ### 获取菜单信息
 
-- **url**: /api/admin/getMenus
-- **param**：
-  - *roleName：用户的角色（如管理员）
+- **GET**
+
+- **Url**: /api/admin/getMenus
+- **Param**：
+  - *roleName：用户的角色（必须，如管理员）
 
 ### 用户管理
 
@@ -24,13 +26,17 @@ It is developed by Finn.
 
 ##### 获取用户角色下拉菜单
 
-- **url**：/api/admin/userList/getRoleSelectList
+- **GET**
+
+- **Url**：/api/admin/userList/getRoleSelectList
 
 ##### 按条件查询所有用户信息
 
-- **url**: /api/admin/userList/getUserList
+- **GET**
 
-- **param**: 
+- **Url**: /api/admin/userList/getUserList
+
+- **Param**: 
   - current: 当前页，默认为1
   - size：一页显示个数，默认为5
   - roleName：用户角色
