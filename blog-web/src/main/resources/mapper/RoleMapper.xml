@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.RoleMapper">
-    <select id="getUserRoleList" resultType="com.finn.dto.ListRoleDTO">
+    <select id="getUserRoleSelectList" resultType="com.finn.dto.RoleSelectListDTO">
         <!-- 查询出来的列名要和对象里的属性名一致 -->
-        select role_name, count(1) as roleNums
+        select role_name as roleName, count(1) as roleNums
         from tb_role r
         group by r.role_name;
     </select>

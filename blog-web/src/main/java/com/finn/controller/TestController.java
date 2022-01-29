@@ -1,8 +1,6 @@
 package com.finn.controller;
 
-import com.finn.entity.User;
-import com.finn.service.UserService;
-import com.finn.util.ResultUtils;
+import com.finn.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +33,10 @@ public class TestController {
 //    @CrossOrigin(origins = {"10.12.37.207:3000"})
     @ApiOperation("测试接口")
     @GetMapping("/api/test")
-    public ResultUtils test(){
+    public Result test(){
 //        User user = UserService.getUserById(1);
 //        System.out.println(user.toString());
-        return ResultUtils.success().codeAndMessage("200", "王宁傻逼");
+        return Result.success().codeAndMessage("200", "王宁傻逼");
     }
 
 }

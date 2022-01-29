@@ -1,15 +1,17 @@
 package com.finn.controller;
 
 
+import com.finn.dto.RoleSelectListDTO;
 import com.finn.enums.ResultEnums;
 import com.finn.service.RoleService;
-import com.finn.util.ResultUtils;
+import com.finn.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,14 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-01-18
  */
 @RestController
-@RequestMapping("/api/admin/userList")
+@RequestMapping("/api")
 public class RoleController {
 
     @Autowired
     RoleService roleService;
 
-    @GetMapping("/getRoleList")
-    public ResultUtils getRoleList() {
-        return ResultUtils.success().codeAndMessage(ResultEnums.SUCCESS).data("roleList", roleService.getUserRoleList());
+    /* 
+    * @Description: 用户列表-角色下拉菜单
+    * @Param: [] 
+    * @return:  
+    * @Author: Finn
+    * @Date: 2022/1/29 
+    */
+    @GetMapping("/admin/userList/getRoleSelectList")
+    public Result getRoleList() {
+        List<RoleSelectListDTO> userRoleSelectList = roleService.getUserRoleSelectList();
+        if(!userRoleSelectList.isEmpty())
+            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("roleList", userRoleSelectList);
+        else
+            return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
     }
 }

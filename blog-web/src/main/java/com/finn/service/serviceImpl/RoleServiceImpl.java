@@ -1,12 +1,11 @@
 package com.finn.service.serviceImpl;
 
-import com.finn.dto.ListRoleDTO;
-import com.finn.dto.UserDTO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.finn.dto.RoleSelectListDTO;
 import com.finn.entity.Role;
 import com.finn.mapper.RoleMapper;
 import com.finn.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.finn.vo.UserQueryVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +29,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     * @Date: 2022/1/27 
     */
     @Override
-    public List<ListRoleDTO> getUserRoleList() {
-        return this.baseMapper.getUserRoleList();
+    public List<RoleSelectListDTO> getUserRoleSelectList() {
+        return this.baseMapper.getUserRoleSelectList();
     }
 
 }

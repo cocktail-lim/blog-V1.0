@@ -18,7 +18,7 @@ import java.util.Map;
 @Setter
 @ToString
 @Accessors(chain = true)
-public class ResultUtils {
+public class Result {
     /*
     * 请求api时，
     * 返回“状态成功”或者“失败”
@@ -40,36 +40,36 @@ public class ResultUtils {
     * */
     private Map<String, Object> data = new HashMap<>();
 
-    public ResultUtils() {
+    public Result() {
         super();
     }
 
-    public static ResultUtils success(){
-        ResultUtils resultUtils = new ResultUtils();
-        resultUtils.setStatus(true);
-        return resultUtils;
+    public static Result success(){
+        Result result = new Result();
+        result.setStatus(true);
+        return result;
     }
 
-    public static ResultUtils error() {
-        ResultUtils resultUtils = new ResultUtils();
-        resultUtils.setStatus(false);
-        return resultUtils;
+    public static Result error() {
+        Result result = new Result();
+        result.setStatus(false);
+        return result;
     }
 
-    public ResultUtils data(String key, Object value){
-        Map<String, Object> data = new HashMap<>();
+    public Result data(String key, Object value){
+//        Map<String, Object> data = new HashMap<>();
         data.put(key, value);
         this.setData(data);
         return this;
     }
 
-    public ResultUtils codeAndMessage(String code, String message){
+    public Result codeAndMessage(String code, String message){
         this.setCode(code);
         this.setMessage(message);
         return this;
     }
 
-    public ResultUtils codeAndMessage(ResultEnums resultEnums){
+    public Result codeAndMessage(ResultEnums resultEnums){
         this.setCode(resultEnums.getCode());
         this.setMessage(resultEnums.getMessage());
         return this;

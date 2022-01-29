@@ -1,6 +1,6 @@
 package com.finn.mapper;
 
-import com.finn.dto.ListRoleDTO;
+import com.finn.dto.RoleSelectListDTO;
 import com.finn.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,5 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
-    List<ListRoleDTO> getUserRoleList();
+    List<RoleSelectListDTO> getUserRoleSelectList();
 }

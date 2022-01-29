@@ -14,13 +14,15 @@ The version is V1.0
 - **param**：
   - roleName：用户的角色（如管理员）
 
-### 用户列表
+### 用户管理
 
-#### 用户角色下拉菜单
+#### 用户列表
 
-- **url**：/api/admin/userList/getRoleList
+##### 用户角色下拉菜单
 
-#### 按条件查询用户信息
+- **url**：/api/admin/userList/getRoleSelectList
+
+##### 按条件查询用户信息
 
 - **url**: /api/admin/userList/getUserByCondition
 
@@ -28,3 +30,8 @@ The version is V1.0
   - roleName：用户角色
   - nickname：昵称
     - 可模糊查询
+
+
+
+### 文章管理
+

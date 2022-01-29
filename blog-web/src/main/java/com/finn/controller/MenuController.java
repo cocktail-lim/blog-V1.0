@@ -3,15 +3,11 @@ package com.finn.controller;
 
 import com.finn.enums.ResultEnums;
 import com.finn.service.MenuService;
-import com.finn.util.ResultUtils;
+import com.finn.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * <p>
@@ -30,7 +26,7 @@ public class MenuController {
 
     @ApiOperation(value = "根据角色获取展示菜单列表")
     @GetMapping("/menus") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
-    public ResultUtils getMenuByRoleName(@RequestParam String roleName){
-        return new ResultUtils().success().codeAndMessage(ResultEnums.SUCCESS).data("menuList", menuService.getMenuListByRoleName(roleName));
+    public Result getMenuByRoleName(@RequestParam String roleName){
+        return new Result().success().codeAndMessage(ResultEnums.SUCCESS).data("menuList", menuService.getMenuListByRoleName(roleName));
     }
 }

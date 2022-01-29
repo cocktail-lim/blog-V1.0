@@ -17,7 +17,7 @@ import java.io.Serializable;
 @ToString
 @Accessors(chain = true)
 public class UserQueryVO implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     // 可以根据role来查询角色数据
     private String roleName;
     // 也可以根据nickName来查询角色数据

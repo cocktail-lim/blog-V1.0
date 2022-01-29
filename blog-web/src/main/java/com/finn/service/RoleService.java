@@ -1,10 +1,8 @@
 package com.finn.service;
 
-import com.finn.dto.ListRoleDTO;
-import com.finn.dto.UserDTO;
+import com.finn.dto.RoleSelectListDTO;
 import com.finn.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.finn.vo.UserQueryVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +24,7 @@ public interface RoleService extends IService<Role> {
     * @Author: Finn
     * @Date: 2022/1/27 
     */
-    List<ListRoleDTO> getUserRoleList();
+    List<RoleSelectListDTO> getUserRoleSelectList();
 
 
 }

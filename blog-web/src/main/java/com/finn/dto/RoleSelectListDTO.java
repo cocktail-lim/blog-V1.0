@@ -8,7 +8,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /*
- * @description: ListRoleDTO
+ * @description: RoleSelectListDTO
  * @author: Finn
  * @create: 2022-01-27-18-17
  */
@@ -16,8 +16,8 @@ import lombok.experimental.Accessors;
 @Getter
 @ToString
 @Accessors(chain = true)
-@ApiModel(value = "ListRoleDTO", description = "角色列表")
-public class ListRoleDTO {
+@ApiModel(value = "RoleSelectListDTO", description = "角色列表")
+public class RoleSelectListDTO {
 
     @ApiModelProperty(value = "角色名")
     private String roleName;
