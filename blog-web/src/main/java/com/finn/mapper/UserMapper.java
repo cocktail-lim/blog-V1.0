@@ -23,6 +23,15 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
 
     /*
+    * @Description: test
+    * @Param: [nickname]
+    * @return:
+    * @Author: Finn
+    * @Date: 2022/1/29
+    */
+    List<UserListPageDTO> getUserListTest(@Param("nickname") String nickname);
+
+    /*
     * @Description: 根据 username 查找 user 的 roles
     * @Param: [name]
     * @return:
@@ -31,8 +40,6 @@ public interface UserMapper extends BaseMapper<User> {
     */
     List<String> listUserRolesByUsername(@Param("username") String name);
 
-    IPage<UserListPageDTO> getUserListPage(Page<UserListPageDTO> page, @Param("roleName") String roleName, @Param("nickname") String nickname);
-
     /*
     * @Description: 根据条件（用户角色/昵称）来查询用户信息
     * @Param: [userQueryVO]
@@ -40,7 +47,5 @@ public interface UserMapper extends BaseMapper<User> {
     * @Author: Finn
     * @Date: 2022/1/29
     */
-    List<UserListPageDTO> getUserByCondition(@Param("userQueryVO") UserQueryVO userQueryVO);
-
-    List<UserListPageDTO> getUserListTest(@Param("nickname") String nickname);
+    IPage<UserListPageDTO> getUserList(Page<UserListPageDTO> page, @Param("userQueryVO") UserQueryVO userQueryVO);
 }

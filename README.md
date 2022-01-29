@@ -4,6 +4,8 @@ This is my blog built by Spring Boot 2.
 
 The version is V1.0
 
+It is developed by Finn.
+
 
 
 ## Admin System
@@ -18,15 +20,17 @@ The version is V1.0
 
 #### 用户列表
 
-##### 用户角色下拉菜单
+##### 获取用户角色下拉菜单
 
 - **url**：/api/admin/userList/getRoleSelectList
 
-##### 按条件查询用户信息
+##### 按条件查询所有用户信息
 
-- **url**: /api/admin/userList/getUserByCondition
+- **url**: /api/admin/userList/getUserList
 
 - **param**: 
+  - current: 当前页，默认为1
+  - size：一页显示个数，默认为5
   - roleName：用户角色
   - nickname：昵称
     - 可模糊查询

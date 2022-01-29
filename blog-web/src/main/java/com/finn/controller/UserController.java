@@ -33,33 +33,19 @@ public class UserController {
 
     @ApiOperation(value = "根据用户角色和昵称分页查询用户列表")
     @GetMapping(value = "/admin/userList/getUserList")
-    public Result getUserList(@RequestParam(value = "current",required = true,defaultValue = "1") Integer current,
-                              @RequestParam(value = "size",required = true,defaultValue = "5") Integer size,
-                              @RequestParam(value = "roleName",required = false)String roleName,
-                              @RequestParam(value = "nickname",required = false) String nickname) {
-        Page<UserListPageDTO> page = new Page<>(current,size);
-        IPage<UserListPageDTO> userListPage = userService.getUserListPage(page, roleName, nickname);
-        long total = userListPage.getTotal();
-        List<UserListPageDTO> data = userListPage.getRecords();
-        if(total > 0){
-            return  Result.success().codeAndMessage(ResultEnums.SUCCESS).data("data", data).data("total", total);
-        } else {
-            return  Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
-        }
-    }
-
-    @GetMapping(value = "/admin/userList/getUserByCondition")
     public Result getUserByCondition(UserQueryVO userQueryVO) { //不带传入参数说明，springboot会自动添加参数信息
-        List<UserListPageDTO> users = userService.getUserByCondition(userQueryVO);
-        long count = userService.count();
-        if(!users.isEmpty()) {
-            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("userList",users).data("total", count);
+        Page<UserListPageDTO> page = new Page<>(userQueryVO.getCurrent(), userQueryVO.getSize());
+        IPage<UserListPageDTO> userList = userService.getUserList(page, userQueryVO);
+        long total = userList.getTotal();
+        List<UserListPageDTO> data = userList.getRecords();
+        if(!data.isEmpty()) {
+            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("userList",data).data("total", total);
         } else
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
     }
 
     @GetMapping(value = "/admin/userList/getUserListTest")
     public Result getUserListTest(@RequestParam(value = "nickname") String nickname) {
-        return Result.success().data("data",userService.getUserListTest(nickname));
+        return Result.success().data("data", userService.getUserListTest(nickname));
     }
 }

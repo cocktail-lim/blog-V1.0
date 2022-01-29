@@ -25,6 +25,18 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     /*
+    * @Description: test
+    * @Param: [nickname]
+    * @return:
+    * @Author: Finn
+    * @Date: 2022/1/29
+    */
+    @Override
+    public List<UserListPageDTO> getUserListTest(String nickname) {
+        return this.baseMapper.getUserListTest(nickname);
+    }
+
+    /*
     * @Description: 登录检查
     * @Param: [username, password]
     * @return:
@@ -36,44 +48,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return true;
     }
 
+
     /*
-    * @Description: 返回所有角色
+    * @Description: 根据用户名返回所有角色
     * @Param: []
     * @return: List<String>
     * @Author: Finn
     * @Date: 2022/1/18
     */
     @Override
-    public List<String> listUserRolesByUsername(String username) {
+        public List<String> listUserRolesByUsername(String username) {
         return this.baseMapper.listUserRolesByUsername(username);
-    }
-
-    /* 
-    * @Description: 用户列表查询 
-    * @Param: [page, roleName, nickname] 
-    * @return:  
-    * @Author: Finn
-    * @Date: 2022/1/27 
-    */
-    @Override
-    public IPage<UserListPageDTO> getUserListPage(Page<UserListPageDTO> page, String roleName, String nickname) {
-        return this.baseMapper.getUserListPage(page, roleName, nickname);
-    }
-
-    @Override
-    public List<UserListPageDTO> getUserListTest(String nickname) {
-        return this.baseMapper.getUserListTest(nickname);
     }
 
     /*
      * @Description: 根据条件查询用户信息
-     * @Param: [userQueryVO]
+     * @Param: [page, userQueryVO]
      * @return:
      * @Author: Finn
      * @Date: 2022/1/29
      */
     @Override
-    public List<UserListPageDTO> getUserByCondition(UserQueryVO userQueryVO) {
-        return this.baseMapper.getUserByCondition(userQueryVO);
+    public IPage<UserListPageDTO> getUserList(Page<UserListPageDTO> page, UserQueryVO userQueryVO) {
+        return this.baseMapper.getUserList(page, userQueryVO);
     }
 }

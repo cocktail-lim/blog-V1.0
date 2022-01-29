@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/userList/getRoleSelectList").permitAll()
                 .antMatchers("/api/admin/userList/getUserList").permitAll()
                 .antMatchers("/api/admin/userList/getUserListTest").permitAll()
-                .antMatchers("/api/admin/userList/getUserByCondition").permitAll()
+//                .antMatchers("/api/admin/userList/getUserByCondition").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest()
                 .authenticated()
