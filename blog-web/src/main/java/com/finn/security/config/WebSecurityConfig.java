@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 //处理跨域请求中的Preflight请求
-                .antMatchers("/api/admin/menus").permitAll()
+                .antMatchers("/api/admin/getMenus").permitAll()
                 .antMatchers("/api/admin/userList/getRoleSelectList").permitAll()
                 .antMatchers("/api/admin/userList/getUserList").permitAll()
                 .antMatchers("/api/admin/userList/getUserListTest").permitAll()

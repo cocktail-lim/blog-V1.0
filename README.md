@@ -12,7 +12,7 @@ It is developed by Finn.
 
 ### 获取菜单信息
 
-- **url**: /api/admin/menus
+- **url**: /api/admin/getMenus
 - **param**：
   - roleName：用户的角色（如管理员）
 
