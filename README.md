@@ -11,8 +11,8 @@ The version is V1.0
 ### 获取菜单信息
 
 - **url**: /api/admin/menus
-
-
+- **param**：
+  - roleName：用户的角色（如管理员）
 
 ### 用户列表
 
@@ -27,3 +27,4 @@ The version is V1.0
 - **param**: 
   - roleName：用户角色
   - nickname：昵称
+    - 可模糊查询
