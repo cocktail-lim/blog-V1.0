@@ -25,11 +25,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDetailsImpl implements UserDetails {
+public class MyUserDetails implements UserDetails {
     private User user;
     private String username;
     private String password;
-    private Set<GrantedAuthority> authorities;
+    private Set<GrantedAuthority> authorities; // 存放user的身份
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;

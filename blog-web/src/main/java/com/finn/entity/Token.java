@@ -20,8 +20,11 @@ import java.util.Set;
 @ApiModel(value = "Token", description = "Token")
 public class Token {
 
-    @ApiModelProperty("Token ID")
-    private Integer id;
+//    @ApiModelProperty("Token ID")
+//    private Integer id;
+
+    @ApiModelProperty("用户名")
+    private String username;
 
     @ApiModelProperty("用户角色")
     private Set<String> role;

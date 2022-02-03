@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -19,7 +20,7 @@ import java.util.Set;
 
 /*
  * @description: 从数据库里查询到用户信息和权限信息并封装成UserDetails返回
- * @return: UserDetails的是实现类，UserDetailsImpl
+ * @return: UserDetails的是实现类，MyUserDetails
  * @author: Finn
  * @create: 2022-01-16-11-16
  */
@@ -41,10 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println(user);
         if(user != null) {
             // 把数据库里的信息拿出来封装成 UserDetails
-            UserDetailsImpl userDetailsImpl = new UserDetailsImpl();
-            userDetailsImpl.setUser(user);
-            userDetailsImpl.setUsername(user.getUsername());
-            userDetailsImpl.setPassword("{noop}" + user.getPassword()); // noop表示未加密状态
+            MyUserDetails myUserDetails = new MyUserDetails();
+            myUserDetails.setUser(user);
+            myUserDetails.setUsername(user.getUsername());
+            myUserDetails.setPassword("{noop}" + user.getPassword()); // noop表示未加密状态
 
             List<String> roles = userService.listUserRolesByUsername(username); //获取当前用户的角色集
             SimpleGrantedAuthority authority;
@@ -54,8 +55,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 authorities.add(authority);
             }
 
-            userDetailsImpl.setAuthorities(authorities);
-            return userDetailsImpl;
+            myUserDetails.setAuthorities(authorities);
+            return myUserDetails;
         } else
             throw new UsernameNotFoundException("用户不存在！");
     }

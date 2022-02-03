@@ -1,5 +1,6 @@
 package com.finn.dto;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
@@ -20,11 +21,12 @@ import java.util.Date;
 @Setter
 @ToString
 @Accessors(chain = true)
-@ApiModel(value = "UserListPageDTO", description = "用户列表")
+@ApiModel(value = "UserListPageDTO", description = "用户列表 用户信息")
 public class UserListPageDTO {
 
     @ApiModelProperty("用户ID")
-    private Integer id;
+    @TableId(value = "user_id") //作为主键的属性不设置的话，mybatis plus查不到
+    private Integer userId;
 
     @ApiModelProperty("头像")
     private String avatar;
@@ -44,6 +46,4 @@ public class UserListPageDTO {
     @ApiModelProperty("是否禁言")
     private Integer isSilence;
 
-//    @ApiModelProperty("操作")
-//    private String action;
 }

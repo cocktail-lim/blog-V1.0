@@ -8,11 +8,21 @@ It is developed by Finn.
 
 
 
+## Session
+
+### Session过期跳转
+
+- **GET**
+- **Url**: /api/session/invalid
+- **Param**
+
+
+
 ## Admin System
 
 <font color="red" >*表示必须</font>
 
-### 获取菜单信息
+### 菜单展示模块
 
 - **GET**
 
@@ -24,17 +34,17 @@ It is developed by Finn.
 
 #### 用户列表
 
-##### 获取用户角色下拉菜单
+##### 获取用户角色信息
 
 - **GET**
 
-- **Url**：/api/admin/userList/getRoleSelectList
+- **Url**：/api/admin/role/getRoleSelectList
 
-##### 按条件查询所有用户信息
+##### 根据用户角色和昵称分页查询用户列表
 
 - **GET**
 
-- **Url**: /api/admin/userList/getUserList
+- **Url**: /api/admin/user/getUserList
 
 - **Param**: 
   - current: 当前页，默认为1

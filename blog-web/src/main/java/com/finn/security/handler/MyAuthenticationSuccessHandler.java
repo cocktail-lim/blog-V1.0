@@ -2,10 +2,10 @@ package com.finn.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.finn.dto.UserLoginDTO;
-import com.finn.security.TokenUtils;
-import com.finn.security.UserDetailsImpl;
+import com.finn.security.MyUserDetails;
+import com.finn.service.util.TokenUtils;
 import com.finn.enums.ResultEnums;
-import com.finn.util.Result;
+import com.finn.service.util.Result;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -44,7 +44,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 //        HashMap<String, Object> loginInfo = new HashMap<>();
         List<Object> loginInfo = new ArrayList<>();
         // 从已认证的Authentication中获得UserDetails
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
         UserLoginDTO user = new UserLoginDTO();
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
@@ -54,7 +54,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
             roles.add(grantedAuthority.getAuthority());
         }
 
-        loginInfo.add(tokenUtils.creatToken(roles));
+        loginInfo.add(tokenUtils.creatToken(userDetails.getUsername(), roles));
 
         user.setUserId(userDetails.getUser().getUserId())
                 .setUsername(userDetails.getUser().getUsername())

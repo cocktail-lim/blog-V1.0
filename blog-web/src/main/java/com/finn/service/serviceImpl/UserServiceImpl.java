@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     /*
-    * @Description: 根据用户名返回所有角色
+    * @Description: 根据username查询其角色
     * @Param: []
     * @return: List<String>
     * @Author: Finn

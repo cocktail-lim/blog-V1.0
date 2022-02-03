@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.UserMapper">
-    <resultMap id="getUserList" type="com.finn.dto.UserListPageDTO">
-        <id column="user_id" property="id"/>
-        <result column="avatar" property="avatar" />
-        <result column="role_name" property="roleName" />
-        <result column="nickname" property="nickname" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_silence" property="isSilence" />
-    </resultMap>
+<!--    <resultMap id="getUserList" type="com.finn.dto.UserListPageDTO">-->
+<!--        <id column="user_id" property="userId"/>-->
+<!--        <result column="avatar" property="avatar" />-->
+<!--        <result column="role_name" property="roleName" />-->
+<!--        <result column="nickname" property="nickname" />-->
+<!--        <result column="create_time" property="createTime" />-->
+<!--        <result column="update_time" property="updateTime" />-->
+<!--        <result column="is_silence" property="isSilence" />-->
+<!--    </resultMap>-->
     <select id="listUserRolesByUsername" resultType="java.lang.String">
         select role_name
         from tb_user, tb_role_user, tb_role

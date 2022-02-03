@@ -3,7 +3,7 @@ package com.finn.controller;
 
 import com.finn.enums.ResultEnums;
 import com.finn.service.MenuService;
-import com.finn.util.Result;
+import com.finn.service.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

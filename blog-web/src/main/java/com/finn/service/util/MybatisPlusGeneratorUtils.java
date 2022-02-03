@@ -1,4 +1,4 @@
-package com.finn.util;
+package com.finn.service.util;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;

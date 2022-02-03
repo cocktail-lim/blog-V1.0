@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
- * @description:
+ * @description: 初次登录验证用户名和密码
  * @author: Finn
  * @create: 2022-01-16-16-09
  */
-
 // 放入spring容器中，可以在该类上标明@component，或者在其他类中标识@Bean，并声明方法来得到该对象
+//@Component
 public class MyUsernamePasswordAuthenticationFilterHandler extends UsernamePasswordAuthenticationFilter {
 
     @Autowired
@@ -37,7 +38,7 @@ public class MyUsernamePasswordAuthenticationFilterHandler extends UsernamePassw
                     "Authentication Method is not supported: " + request.getMethod());
         }
 
-        // 读请求，解析出 username 和 password
+        // json处理方式
         if(request.getContentType().equals("application/json;charset=UTF-8")
                 || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
 
@@ -56,10 +57,6 @@ public class MyUsernamePasswordAuthenticationFilterHandler extends UsernamePassw
                     String username = authenticationBean.get("username");
                     String password = authenticationBean.get("password");
 
-//                    // 打印到控制台
-//                    System.out.println("username: " + username);
-//                    System.out.println("password: " + password);
-
                     if (username == null) {
                         username = "";
                     }
@@ -71,7 +68,7 @@ public class MyUsernamePasswordAuthenticationFilterHandler extends UsernamePassw
                     username = username.trim();
 
                     // 检查账号密码是否存在
-                    // Principal: 获取用户身份信息，在未认证的情况下获取到的是用户名，在已认证的情况下获取到的是 UserDetails。
+                    // Principal: 获取用户身份信息，在未认证的情况下获取到的是用户名，在已认证的情况下获取到的是 UserDetails
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
                     if(userService.checkLogin(username, password)) {
                         // 认证成功的user封装到userDetails里
@@ -84,7 +81,28 @@ public class MyUsernamePasswordAuthenticationFilterHandler extends UsernamePassw
                 e.printStackTrace();
             }
         } else {
-            throw new AuthenticationException("不是json格式");
+            // 表单处理方式
+            String username = obtainUsername(request);
+            String password = obtainPassword(request);
+
+            if (username == null) {
+                username = "";
+            }
+
+            if (password == null) {
+                password = "";
+            }
+
+            username = username.trim();
+
+            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+                    username, password);
+
+            // Allow subclasses to set the "details" property
+            setDetails(request, authRequest);
+
+            return this.getAuthenticationManager().authenticate(authRequest);
+//            throw new AuthenticationException("不是json格式");
         }
 
         return this.attemptAuthentication(request, response);

@@ -23,8 +23,15 @@ public interface UserService extends IService<User> {
 
     boolean checkLogin(String username, String password);
 
+    /* 
+    * @Description: 根据username查找用户角色
+    * @Param: [name] 
+    * @return: java.util.List<java.lang.String> 
+    * @Author: Finn
+    * @Date: 2022/01/29 19:04
+    */
     List<String> listUserRolesByUsername(String name);
-
+    
     List<UserListPageDTO> getUserListTest(String nickname);
 
     /*

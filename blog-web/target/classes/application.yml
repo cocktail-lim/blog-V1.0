@@ -20,6 +20,9 @@ mybatis-plus:
 
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 60
 
 enable:
   swagger2: true

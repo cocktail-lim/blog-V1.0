@@ -4,7 +4,7 @@ package com.finn.controller;
 import com.finn.dto.RoleSelectListDTO;
 import com.finn.enums.ResultEnums;
 import com.finn.service.RoleService;
-import com.finn.util.Result;
+import com.finn.service.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +35,7 @@ public class RoleController {
     * @Author: Finn
     * @Date: 2022/1/29 
     */
-    @GetMapping("/admin/userList/getRoleSelectList")
+    @GetMapping("/admin/role/getRoleSelectList")
     public Result getRoleList() {
         List<RoleSelectListDTO> userRoleSelectList = roleService.getUserRoleSelectList();
         if(!userRoleSelectList.isEmpty())
