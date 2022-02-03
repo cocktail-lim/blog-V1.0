@@ -60,7 +60,7 @@ public class MybatisPlusGeneratorUtils {
 //                            .moduleName("blog-web") // 设置父包模块名
                             .entity("entity")
                             .service("service")
-                            .serviceImpl("/service/serviceImpl")
+                            .serviceImpl("service.serviceImpl")
                             .controller("controller")
                             .mapper("mapper")
                             .xml("mapper")

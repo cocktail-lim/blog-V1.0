@@ -32,7 +32,7 @@ public class TagController {
 
     @ApiOperation("获取文章Tag")
     @GetMapping("/admin/tag/getTag")
-    public Result getCategoryList() {
+    public Result getTagList() {
         List<Tag> tagList = tagService.list();
         if(!tagList.isEmpty()) {
             return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("tagList", tagList);

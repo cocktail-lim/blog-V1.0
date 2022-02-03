@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.ArticleMapper">
+<!--    <insert id="createArticle">-->
+<!--        insert-->
+<!--        into tb_article a-->
+<!--        (article_title, article_content, article_cover, category_id, is_top, create_time, update_time)-->
+<!--        values(-->
+<!--        #{ArticleUpdateVO.articleTitle},-->
+<!--        #{ArticleUpdateVO.articleContent},-->
+<!--        #{ArticleUpdateVO.articleCover},-->
+<!--        #{ArticleUpdateVO.categoryId},-->
+<!--        #{ArticleUpdateVO.isTop},-->
+<!--        now(),-->
+<!--        now()-->
+<!--        )-->
+<!--    </insert>-->
 
 </mapper>

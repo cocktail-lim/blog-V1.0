@@ -1,8 +1,6 @@
 package com.finn.service;
 
-import com.finn.entity.Article;
 import com.finn.entity.ArticleTag;
-import com.finn.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-02-03
  */
 @Service
-public interface TagService extends IService<Tag> {
+public interface ArticleTagService extends IService<ArticleTag> {
 
 }

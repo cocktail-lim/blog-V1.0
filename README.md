@@ -59,6 +59,22 @@ It is developed by Finn.
 
 #### 新增博客
 
+##### 保存和修改文章
+
+- **GET**
+- **Url**: /admin/article/saveOrUpdateArticle
+- **Param**
+  - *articleId: null为新增文章，非null为修改文章
+  - *articleTitle: 文章标题
+  - articleContent: 文章内容
+  - articleCover: 文章封面 url 链接
+  - categoryId: 分类ID
+  - tagList: 标签List，<u>要返回数组</u>
+  - isTop: 是否置顶
+  - isDraft: 保存草稿or发布文章
+
+
+
 ##### 查询所有Tag
 
 - **GET**
@@ -66,9 +82,12 @@ It is developed by Finn.
 - **Url**: /api/admin/tag/getTag
 - **Param**
 
+
+
 ##### 查询所有分类
 
 - **GET**
 
 - **Url**: /api/admin/category/getCategory
 - **Param**
+
