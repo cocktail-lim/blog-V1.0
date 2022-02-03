@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finn.mapper.ApiRoleMapper">
+    <select id="getApiRole" resultType="com.finn.entity.ApiRole">
+        SELECT
+        a.api_id as apiId,
+        a.url as url,
+        a.method as method,
+        r.role_id as roleId,
+        r.role_name as roleName
+        FROM
+        tb_api a
+        LEFT JOIN tb_api_role ar on a.api_id = ar.api_id
+        LEFT JOIN tb_role r on ar.role_id = r.role_id
+        WHERE
+        url IS NOT NULL
+    </select>
+</mapper>
