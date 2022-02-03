@@ -1,6 +1,6 @@
 package com.finn.exception;
 
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import com.finn.enums.ResultEnums;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -21,10 +21,17 @@ import java.io.IOException;
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     @Autowired
-    private FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
+    private MySecurityMetadataSource mySecurityMetadataSource;
 
-    @Autowired
-    public void setAccessDecisionManager(MyAccessDecisionManager myAccessDecisionManager) {
+//    @Autowired
+//    public void setAccessDecisionManager(MyAccessDecisionManager myAccessDecisionManager) {
+//        super.setAccessDecisionManager(myAccessDecisionManager);
+//    }
+
+    public MyFilterSecurityInterceptor(MyAccessDecisionManager myAccessDecisionManager,
+                                       MySecurityMetadataSource mySecurityMetadataSource) {
+        this.mySecurityMetadataSource = mySecurityMetadataSource;
+        // 设置 以 自定义的决策权 进行 鉴权管理
         super.setAccessDecisionManager(myAccessDecisionManager);
     }
 
@@ -61,6 +68,6 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 
     @Override
     public SecurityMetadataSource obtainSecurityMetadataSource() {
-        return this.filterInvocationSecurityMetadataSource;
+        return this.mySecurityMetadataSource;
     }
 }

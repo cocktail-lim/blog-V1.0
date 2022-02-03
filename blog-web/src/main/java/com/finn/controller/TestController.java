@@ -1,6 +1,6 @@
 package com.finn.controller;
 
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

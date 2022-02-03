@@ -1,4 +1,4 @@
-package com.finn.service.util;
+package com.finn.utils;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -60,7 +60,7 @@ public class MybatisPlusGeneratorUtils {
 //                            .moduleName("blog-web") // 设置父包模块名
                             .entity("entity")
                             .service("service")
-                            .serviceImpl("serviceImpl")
+                            .serviceImpl("/service/serviceImpl")
                             .controller("controller")
                             .mapper("mapper")
                             .xml("mapper")

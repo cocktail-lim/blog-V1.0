@@ -4,7 +4,7 @@ package com.finn.controller;
 import com.finn.dto.RoleSelectListDTO;
 import com.finn.enums.ResultEnums;
 import com.finn.service.RoleService;
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

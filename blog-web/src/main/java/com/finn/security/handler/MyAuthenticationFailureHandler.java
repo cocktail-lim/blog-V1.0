@@ -2,7 +2,7 @@ package com.finn.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.finn.enums.ResultEnums;
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;

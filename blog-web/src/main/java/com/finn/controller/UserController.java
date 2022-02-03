@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.finn.dto.UserListPageDTO;
 import com.finn.enums.ResultEnums;
 import com.finn.service.UserService;
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import com.finn.vo.UserQueryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

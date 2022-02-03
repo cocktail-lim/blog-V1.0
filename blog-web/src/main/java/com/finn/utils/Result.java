@@ -1,4 +1,4 @@
-package com.finn.service.util;
+package com.finn.utils;
 
 import com.finn.enums.ResultEnums;
 import lombok.Getter;

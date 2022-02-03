@@ -8,6 +8,7 @@ import com.finn.security.handler.MyUsernamePasswordAuthenticationFilterHandler;
 import com.finn.security.handler.MyAuthenticationFailureHandler;
 import com.finn.security.handler.MyAuthenticationSuccessHandler;
 import io.swagger.annotations.Api;
+import org.aspectj.weaver.ast.And;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @Api(value = "Spring Security配置类")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    // 从 FilterSecurityInterceptor 类开始鉴权流程
+    /*从 FilterSecurityInterceptor 类开始鉴权流程*/
 
     @Autowired
     private UserDetailsServiceImpl myUserDetailService;
@@ -57,37 +58,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*登录和注销*/
-        http.formLogin().loginProcessingUrl("/login").and()
-                        .logout().logoutUrl("/logout").logoutSuccessHandler(myLogoutSuccessHandler)
-                        ;
+
         /*替换密码校验过滤器*/
         http.addFilterAt(myUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
 
-        http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+        http.cors()
+            .and()
+            .csrf()
+            .disable()
             .authorizeRequests()    // 授权配置
+            .requestMatchers(CorsUtils::isPreFlightRequest)
+            .permitAll()
             .antMatchers("/session/invalid")
             .permitAll()       // 无需认证的请求路径
             .anyRequest()       // 任何请求
-            .authenticated()    //都需要身份认证
+//            .authenticated()    //都需要身份认证
+                .permitAll() // 不需要身份认证
+            .and()
+            /*登录和注销*/
+            .formLogin().loginProcessingUrl("http://10.12.37.207:3000/login")
+            .and()
+            .logout().logoutUrl("/logout").logoutSuccessHandler(myLogoutSuccessHandler)
             .and()
             .sessionManagement() // 添加session管理器
-            .invalidSessionUrl("/api/session/invalid") // Session失效后跳转到这个链接
-//        http.cors().and()
-//            .authorizeRequests()//处理跨域请求中的Preflight请求
-////                .antMatchers("/api/admin/getMenus").permitAll()
-////                .antMatchers("/api/admin/userList/getRoleSelectList").permitAll()
-////                .antMatchers("/api/admin/userList/getUserList").permitAll()
-////                .antMatchers("/api/admin/userList/getUserListTest").permitAll()
-//            .requestMatchers(CorsUtils::isPreFlightRequest)
-//            .permitAll()
-//            .anyRequest()
-//            .authenticated() // 需要认证
-//            .and()
+            .invalidSessionUrl("http://10.12.37.207:3000/login") // Session失效后跳转到这个链接
             ;
 
-        // 关闭crsf保护
-        http.csrf().disable().exceptionHandling(); // @EnableWebSecurity会使csrf保护生效
+
     }
 
     /*
@@ -134,7 +132,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
-
         source.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(source);
     }

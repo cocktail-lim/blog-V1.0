@@ -14,6 +14,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MybatisPlusConfig {
+
+    /*
+    * @Description:  添加表插件
+    * @Param: []
+    * @return: com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor
+    * @Author: Finn
+    * @Date: 2022/02/03 16:53
+    */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

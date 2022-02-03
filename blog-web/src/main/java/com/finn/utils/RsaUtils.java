@@ -1,4 +1,4 @@
-package com.finn.service.util;
+package com.finn.utils;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;

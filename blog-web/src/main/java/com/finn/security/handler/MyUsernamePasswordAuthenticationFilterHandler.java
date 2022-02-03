@@ -40,7 +40,7 @@ public class MyUsernamePasswordAuthenticationFilterHandler extends UsernamePassw
 
         // json处理方式
         if(request.getContentType().equals("application/json;charset=UTF-8")
-                || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
+                || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
 
             Map<String, String> authenticationBean = new HashMap<>(); //存入 username 和 password
             ObjectMapper objectMapper = new ObjectMapper();

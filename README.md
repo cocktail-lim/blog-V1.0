@@ -57,3 +57,18 @@ It is developed by Finn.
 
 ### 文章管理
 
+#### 新增博客
+
+##### 查询所有Tag
+
+- **GET**
+
+- **Url**: /api/admin/tag/getTag
+- **Param**
+
+##### 查询所有分类
+
+- **GET**
+
+- **Url**: /api/admin/category/getCategory
+- **Param**

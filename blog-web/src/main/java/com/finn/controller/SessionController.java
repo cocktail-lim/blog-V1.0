@@ -1,6 +1,6 @@
 package com.finn.controller;
 
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

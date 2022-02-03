@@ -3,9 +3,8 @@ package com.finn.security.handler;
 import com.alibaba.fastjson.JSON;
 import com.finn.dto.UserLoginDTO;
 import com.finn.security.MyUserDetails;
-import com.finn.service.util.TokenUtils;
 import com.finn.enums.ResultEnums;
-import com.finn.service.util.Result;
+import com.finn.utils.Result;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -25,8 +24,6 @@ import java.util.*;
 @Component
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 
-    TokenUtils tokenUtils;
-
     /*
     * @Description: 给前端返回数据
     * @Param: [httpServletRequest, httpServletResponse, authentication]
@@ -37,12 +34,9 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
-        tokenUtils = new TokenUtils();
         // 设置返回头
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        // 初始化返回内容
-//        HashMap<String, Object> loginInfo = new HashMap<>();
-        List<Object> loginInfo = new ArrayList<>();
+
         // 从已认证的Authentication中获得UserDetails
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
         UserLoginDTO user = new UserLoginDTO();
@@ -54,20 +48,15 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
             roles.add(grantedAuthority.getAuthority());
         }
 
-        loginInfo.add(tokenUtils.creatToken(userDetails.getUsername(), roles));
-
         user.setUserId(userDetails.getUser().getUserId())
                 .setUsername(userDetails.getUser().getUsername())
                 .setNickname(userDetails.getUser().getNickname())
                 .setAvatar(userDetails.getUser().getAvatar())
                 .setIntro(userDetails.getUser().getIntro())
                 .setIsSilence(userDetails.getUser().getIsSilence());
-//                .setToken(roles);
-
-        loginInfo.add(user);
 
         httpServletResponse.getWriter().write(
-                JSON.toJSONString(Result.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("userInfo", loginInfo))
+                JSON.toJSONString(Result.success().codeAndMessage(ResultEnums.LOGIN_SUCCESS).data("userInfo", user))
         );
     }
 }
