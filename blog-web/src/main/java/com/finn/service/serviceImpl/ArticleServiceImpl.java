@@ -76,4 +76,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO) {
         return this.baseMapper.getArticleListPage(page, articleListVO);
     }
+
+    @Override
+    public void topArticleById(Integer articleId, Boolean isTop) {
+        this.baseMapper.topArticleById(articleId, isTop);
+    }
 }

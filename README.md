@@ -62,7 +62,7 @@ It is developed by Finn.
 ##### 保存和修改文章
 
 - **POST**
-- **Url**: /admin/article/saveOrUpdateArticle
+- **Url**: /api/admin/article/saveOrUpdateArticle
 - **Param**
   - *Integer **articleId**: null为新增文章，非null为指定id的文章进行修改
   - *String **articleTitle**: 文章标题
@@ -106,3 +106,16 @@ It is developed by Finn.
   - size：一页显示个数，默认为10
   - articleTitle: 文章标题
     - 可模糊查询
+
+
+
+##### 根据文章Id置顶文章
+
+- **POST**
+
+- **Url**: /api/admin/article/topArticleById
+
+- **Param**: 
+  - *Integer articleId:  文章id
+  - *Boolean isTop：文章是否置顶
+

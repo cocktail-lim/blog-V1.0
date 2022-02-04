@@ -32,6 +32,6 @@ public class ArticleListVO implements Serializable {
     @ApiModelProperty(value = "可以根据文章标题来模糊查询")
     private String articleTitle;
 
-    @ApiModelProperty(value = "是否是草稿")
-    private boolean isDraft;
+//    @ApiModelProperty(value = "是否是草稿")
+//    private boolean isDraft;
 }

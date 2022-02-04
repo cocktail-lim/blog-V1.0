@@ -39,5 +39,14 @@ public interface ArticleService extends IService<Article> {
     * @Date: 2022/02/04 14:51
     */
     IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO);
+
+    /*
+    * @Description: 置顶文章
+    * @Param: []
+    * @return: boolean
+    * @Author: Finn
+    * @Date: 2022/02/04 21:12
+    */
+   void topArticleById(Integer articleId, Boolean isTop);
 }
 

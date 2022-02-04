@@ -29,8 +29,11 @@ public class ArticleListPageDTO {
     @ApiModelProperty("文章标题")
     private String articleTitle;
 
+    @ApiModelProperty("文章封面")
+    private String articleCover;
+
     @ApiModelProperty("分类名")
-    private Integer categoryId;
+    private String categoryName;
 
     @ApiModelProperty("是否置顶 0：不置顶 1：置顶")
     private Boolean isTop;
@@ -45,5 +48,5 @@ public class ArticleListPageDTO {
     private Date updateTime;
 
     @ApiModelProperty("标签Id")
-    private List<TagDTO> tagDTOList;
+    private List<String> tagList;
 }

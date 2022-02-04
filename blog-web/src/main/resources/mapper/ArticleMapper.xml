@@ -4,13 +4,13 @@
     <resultMap id="getArticleListPageMap" type="com.finn.dto.ArticleListPageDTO">
         <id column="article_id" property="articleId"/>
         <result column="article_title" property="articleTitle"/>
-        <result column="category_id" property="categoryId"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="category_name" property="categoryName"/>
         <result column="is_top" property="isTop"/>
         <result column="is_draft" property="isDraft"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <collection property="tagDTOList" ofType="com.finn.dto.TagDTO">
-            <id column="tag_id" property="tagId"/>
+        <collection property="tagList" ofType="string">
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
@@ -19,32 +19,51 @@
         SELECT
             a.article_id,
             a.article_title,
-            a.category_id,
+            a.article_cover,
+            ca.category_name,
             a.is_top,
             a.is_draft,
             a.create_time,
             a.update_time,
-            t.tag_id,
             t.tag_name
         FROM
             (
-                SELECT
-                    article_id,
-                    article_title,
-                    is_top,
-                    is_draft,
-                    create_time,
-                    update_time,
-                    category_id
-                FROM
-                    tb_article
-                ORDER BY is_top DESC, article_id DESC
+            SELECT
+                article_id,
+                article_title,
+                article_cover,
+                is_top,
+                is_draft,
+                create_time,
+                update_time,
+                category_id
+            FROM
+                tb_article
+            <where>
+<!--                <if test="articleListVO.isDraft != null">-->
+<!--                    and is_draft = #{articleListVO.isDraft}-->
+<!--                </if>-->
+                <if test="articleListVO.articleTitle != null">
+                    and article_title like concat('%',#{articleListVO.articleTitle},'%')
+                </if>
+            </where>
+            ORDER BY is_top DESC, article_id DESC
             ) AS a
-                LEFT JOIN tb_category c ON a.category_id = c.category_id
-                LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id
-                LEFT JOIN tb_tag t ON t.tag_id = atg.tag_id
+        LEFT JOIN tb_category c ON a.category_id = c.category_id
+        LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id
+        LEFT JOIN tb_tag t ON t.tag_id = atg.tag_id
+        LEFT JOIN tb_category ca ON a.category_id = ca.category_id
         ORDER BY is_top DESC, a.article_id DESC
     </select>
+
+    <update id="topArticleById">
+        update
+        tb_article
+        <set>
+        is_top = #{isTop}
+        </set>
+        where article_id = #{articleId}
+    </update>
 </mapper>
 <!--    <insert id="createArticle">-->
 <!--        insert-->

@@ -29,4 +29,13 @@ public interface ArticleMapper extends BaseMapper<Article> {
     * @Date: 2022/02/04 15:01
     */
     IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, @Param("articleListVO") ArticleListVO articleListVO);
+
+    /*
+    * @Description: 根据文章ID置顶文章
+    * @Param: [articleId, isTop]
+    * @return: void
+    * @Author: Finn
+    * @Date: 2022/02/04 21:15
+    */
+    void topArticleById(@Param("articleId") Integer articleId, @Param("isTop") Boolean isTop);
 }
