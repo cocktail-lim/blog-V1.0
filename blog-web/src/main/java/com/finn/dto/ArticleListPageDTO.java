@@ -1,53 +1,35 @@
-package com.finn.entity;
+package com.finn.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 新增文章
- * </p>
- *
- * @author finn
- * @since 2022-02-03
+import java.util.Date;
+import java.util.List;
+
+/*
+ * @description: Admin System文章列表
+ * @author: Finn
+ * @create: 2022/02/04 11:48
  */
 @Getter
 @Setter
 @ToString
-@Builder
 @Accessors(chain = true)
-@TableName("tb_article")
-@ApiModel(value = "Article对象", description = "文章")
-public class Article implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@ApiModel(value = "Admin ArticleListPageDTO", description = "后台文章列表")
+public class ArticleListPageDTO {
 
     @ApiModelProperty("文章主键id")
-    @TableId(value = "article_id", type = IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Integer articleId;
 
     @ApiModelProperty("文章标题")
     private String articleTitle;
 
-    @ApiModelProperty("文章内容")
-    private String articleContent;
-
-    @ApiModelProperty("文章封面")
-    private String articleCover;
-
-    @ApiModelProperty("分类id")
+    @ApiModelProperty("分类名")
     private Integer categoryId;
 
     @ApiModelProperty("是否置顶 0：不置顶 1：置顶")
@@ -62,4 +44,6 @@ public class Article implements Serializable {
     @ApiModelProperty("更新时间")
     private Date updateTime;
 
+    @ApiModelProperty("标签Id")
+    private List<TagDTO> tagDTOList;
 }

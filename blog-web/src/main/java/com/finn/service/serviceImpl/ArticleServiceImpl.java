@@ -1,6 +1,9 @@
 package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.finn.dto.ArticleListPageDTO;
 import com.finn.entity.Article;
 import com.finn.entity.ArticleTag;
 import com.finn.entity.Tag;
@@ -9,6 +12,7 @@ import com.finn.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.finn.service.ArticleTagService;
 import com.finn.service.TagService;
+import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +70,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                     .collect(Collectors.toList());
             articleTagService.saveBatch(articleTagList);
         }
+    }
+
+    @Override
+    public IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO) {
+        return this.baseMapper.getArticleListPage(page, articleListVO);
     }
 }

@@ -61,17 +61,17 @@ It is developed by Finn.
 
 ##### 保存和修改文章
 
-- **GET**
+- **POST**
 - **Url**: /admin/article/saveOrUpdateArticle
 - **Param**
-  - *articleId: null为新增文章，非null为修改文章
-  - *articleTitle: 文章标题
-  - articleContent: 文章内容
-  - articleCover: 文章封面 url 链接
-  - categoryId: 分类ID
-  - tagList: 标签List，<u>要返回数组</u>
-  - isTop: 是否置顶
-  - isDraft: 保存草稿or发布文章
+  - *Integer **articleId**: null为新增文章，非null为指定id的文章进行修改
+  - *String **articleTitle**: 文章标题
+  - String **articleContent**: 文章内容
+  - String **articleCover**: 文章封面 url 链接
+  - Integer **categoryId**: 分类ID
+  - List **tagList**: 标签Id List，<u>要返回数组</u>
+  - Boolean **isTop**: 是否置顶
+  - Boolean **isDraft**: 保存草稿or发布文章
 
 
 
@@ -91,3 +91,18 @@ It is developed by Finn.
 - **Url**: /api/admin/category/getCategory
 - **Param**
 
+
+
+### 文章列表
+
+##### 根据文章标题分页查询文章列表
+
+- **GET**
+
+- **Url**: /api/admin/article/getArticleListPage
+
+- **Param**: 
+  - current: 当前页，默认为1
+  - size：一页显示个数，默认为10
+  - articleTitle: 文章标题
+    - 可模糊查询

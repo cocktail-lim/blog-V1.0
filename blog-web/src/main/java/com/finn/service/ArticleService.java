@@ -1,8 +1,14 @@
 package com.finn.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.finn.dto.ArticleListPageDTO;
+import com.finn.dto.UserListPageDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
+import com.finn.vo.UserQueryVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,5 +30,14 @@ public interface ArticleService extends IService<Article> {
     * @Date: 2022/02/03 20:13
     */
     void saveOrUpdateArticle(ArticleVO articleVO);
+
+    /* 
+    * @Description: 获取文章列表 
+    * @Param: [page, articleListVO] 
+    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageDTO> 
+    * @Author: Finn
+    * @Date: 2022/02/04 14:51
+    */
+    IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO);
 }
 

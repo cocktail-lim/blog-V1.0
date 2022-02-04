@@ -21,18 +21,18 @@ import java.util.List;
 @Service
 public interface UserService extends IService<User> {
 
+    List<UserListPageDTO> getUserListTest(String nickname);
+
     boolean checkLogin(String username, String password);
 
-    /* 
+    /*
     * @Description: 根据username查找用户角色
-    * @Param: [name] 
-    * @return: java.util.List<java.lang.String> 
+    * @Param: [name]
+    * @return: java.util.List<java.lang.String>
     * @Author: Finn
     * @Date: 2022/01/29 19:04
     */
     List<String> listUserRolesByUsername(String name);
-    
-    List<UserListPageDTO> getUserListTest(String nickname);
 
     /*
      * @Description: 根据条件查找用户信息
