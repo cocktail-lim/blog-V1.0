@@ -1,15 +1,15 @@
 package com.finn.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.finn.dto.ArticleListPageDTO;
-import com.finn.dto.UserListPageDTO;
+import com.finn.dto.ArticleListPageBackDTO;
+import com.finn.dto.PageDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
-import com.finn.vo.UserQueryVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,13 +32,32 @@ public interface ArticleService extends IService<Article> {
     void saveOrUpdateArticle(ArticleVO articleVO);
 
     /* 
-    * @Description: 获取文章列表 
-    * @Param: [page, articleListVO] 
-    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageDTO> 
+    * @Description: 获取后台文章总数
+    * @Param: [] 
+    * @return: long 
+    * @Author: Finn
+    * @Date: 2022/02/05 19:59
+    */
+    Long countArticleBack();
+
+    /*
+    * @Description: 获取后台文章列表 List
+     * @Param: [articleListVO]
+    * @return: java.util.List<com.finn.dto.ArticleListPageBackDTO>
+    * @Author: Finn
+    * @Date: 2022/02/05 20:17
+    */
+    List<ArticleListPageBackDTO> listArticlePageBack(ArticleListVO articleListVO);
+
+    /*
+    * @Description: 获取后台文章列表要返回给前端的数据
+    * @Param: [page, articleListVO]
+    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageBackDTO>
     * @Author: Finn
     * @Date: 2022/02/04 14:51
     */
-    IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO);
+//    IPage<ArticleListPageBackDTO> getArticleListPage(Page<ArticleListPageBackDTO> page, ArticleListVO articleListVO);
+    PageDTO<ArticleListPageBackDTO> listArticlePageBackDTO(ArticleListVO articleListVO);
 
     /*
     * @Description: 置顶文章

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.ArticleMapper">
-    <resultMap id="getArticleListPageMap" type="com.finn.dto.ArticleListPageDTO">
+    <resultMap id="getArticleListPageMap" type="com.finn.dto.ArticleListPageBackDTO">
         <id column="article_id" property="articleId"/>
         <result column="article_title" property="articleTitle"/>
         <result column="article_cover" property="articleCover"/>
@@ -15,7 +15,11 @@
         </collection>
     </resultMap>
 
-    <select id="getArticleListPage" resultMap="getArticleListPageMap">
+    <select id="countArticleBack" resultType="java.lang.Long">
+        SELECT count(*) from tb_article
+    </select>
+
+    <select id="listArticlePageBack" resultMap="getArticleListPageMap">
         SELECT
             a.article_id,
             a.article_title,
@@ -46,6 +50,7 @@
         </where>
         ORDER BY is_top DESC, article_id DESC
         LIMIT #{articleListVO.current}, #{articleListVO.size}
+        <!-- 第一个参数是输出记录的初始位置，第二个参数偏移量 -->
         ) AS a
         LEFT JOIN tb_category c ON a.category_id = c.category_id
         LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id

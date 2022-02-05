@@ -19,8 +19,8 @@ import java.util.List;
 @Setter
 @ToString
 @Accessors(chain = true)
-@ApiModel(value = "Admin ArticleListPageDTO", description = "后台文章列表")
-public class ArticleListPageDTO {
+@ApiModel(value = "Admin ArticleListPageBackDTO", description = "后台文章列表")
+public class ArticleListPageBackDTO {
 
     @ApiModelProperty("文章主键id")
     @TableId(type = IdType.AUTO)

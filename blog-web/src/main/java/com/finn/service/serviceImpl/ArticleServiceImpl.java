@@ -1,17 +1,14 @@
 package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.finn.dto.ArticleListPageDTO;
+import com.finn.dto.ArticleListPageBackDTO;
+import com.finn.dto.PageDTO;
 import com.finn.entity.Article;
 import com.finn.entity.ArticleTag;
-import com.finn.entity.Tag;
 import com.finn.mapper.ArticleMapper;
 import com.finn.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.finn.service.ArticleTagService;
-import com.finn.service.TagService;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,16 +76,46 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
     }
 
-    /* 
-    * @Description: admin system 获取文章分页 
-    * @Param: [page, articleListVO] 
-    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageDTO> 
+    /*
+    * @Description: 获取后台文章总数
+    * @Param: []
+    * @return: long
+    * @Author: Finn
+    * @Date: 2022/02/05 19:59
+    */
+    @Override
+    public Long countArticleBack() {
+        return this.baseMapper.countArticleBack();
+    }
+
+    /*
+    * @Description: 获取后台文章分页
+    * @Param: [articleListVO]
+    * @return: java.util.List<com.finn.dto.ArticleListPageBackDTO>
+    * @Author: Finn
+    * @Date: 2022/02/05 20:18
+    */
+    @Override
+    public List<ArticleListPageBackDTO> listArticlePageBack(ArticleListVO articleListVO) {
+        return this.baseMapper.listArticlePageBack(articleListVO);
+    }
+
+    /*
+    * @Description: 获取后台文章分页，并返回给前端
+    * @Param: [page, articleListVO]
+    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageBackDTO>
     * @Author: Finn
     * @Date: 2022/02/05 16:19
     */
     @Override
-    public IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO) {
-        return this.baseMapper.getArticleListPage(page, articleListVO);
+    public PageDTO<ArticleListPageBackDTO> listArticlePageBackDTO(ArticleListVO articleListVO) {
+        // LIMIT #{articleListVO.current}, #{articleListVO.size}
+        // 第一个参数是输出记录的初始位置，第二个参数偏移量
+        articleListVO.setCurrent((articleListVO.getCurrent() - 1) * articleListVO.getSize()); // 初始位置[不包括]
+        long total = this.countArticleBack();
+        if(total == 0) return new PageDTO<>();
+        List<ArticleListPageBackDTO> list = listArticlePageBack(articleListVO);
+        return new PageDTO<>(list, total);
     }
 
     /* 

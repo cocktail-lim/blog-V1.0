@@ -2,13 +2,15 @@ package com.finn.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.finn.dto.ArticleListPageDTO;
+import com.finn.dto.ArticleListPageBackDTO;
+import com.finn.dto.PageDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.finn.vo.ArticleListVO;
-import com.finn.vo.ArticleVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,14 +23,23 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
+    /* 
+    * @Description: 获取后台文章总数
+    * @Param: [] 
+    * @return: long 
+    * @Author: Finn
+    * @Date: 2022/02/05 19:59
+    */
+    Long countArticleBack();
+
     /*
     * @Description: 根据 articleListVO 获取文章列表
     * @Param: [page, articleListVO]
-    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageDTO>
+    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageBackDTO>
     * @Author: Finn
     * @Date: 2022/02/04 15:01
     */
-    IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, @Param("articleListVO") ArticleListVO articleListVO);
+    List<ArticleListPageBackDTO> listArticlePageBack(@Param("articleListVO") ArticleListVO articleListVO);
 
     /*
     * @Description: 根据文章ID置顶文章

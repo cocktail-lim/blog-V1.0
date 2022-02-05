@@ -99,13 +99,17 @@ It is developed by Finn.
 
 - **GET**
 
-- **Url**: /api/admin/article/getArticleListPage
+- **Url**: /api/admin/article/listArticleBackPage
 
 - **Param**: 
   - current: 当前页，默认为1
   - size：一页显示个数，默认为10
   - articleTitle: 文章标题
     - 可模糊查询
+
+- **return**: 
+  - List **articleList**
+  - long **total**
 
 
 
@@ -116,6 +120,16 @@ It is developed by Finn.
 - **Url**: /api/admin/article/topArticleById
 
 - **Param**: 
-  - *Integer articleId:  文章id
-  - *Boolean isTop：文章是否置顶
+  - *Integer **articleId**:  文章id
+  - *Boolean **isTop**：文章是否置顶
+
+
+
+##### 获取后台文章总数(包括草稿)
+
+- **GET**
+- **Url**: /api/admin/article/countArticleBack
+- **Param**
+- **return**: 
+  - Long **totalArticle**
 

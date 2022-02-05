@@ -1,9 +1,8 @@
 package com.finn.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.finn.dto.ArticleListPageDTO;
+import com.finn.dto.ArticleListPageBackDTO;
+import com.finn.dto.PageDTO;
 import com.finn.enums.ResultEnums;
 import com.finn.service.ArticleService;
 import com.finn.utils.Result;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * <p>
@@ -45,14 +43,11 @@ public class ArticleController {
     }
 
     @ApiOperation(value = "获取后台文章列表")
-    @GetMapping(value = "/api/admin/article/getArticleListPage")
+    @GetMapping(value = "/api/admin/article/listArticleBackPage")
     public Result getArticleListPage(ArticleListVO articleListVO){
-        Page<ArticleListPageDTO> page = new Page<>(articleListVO.getCurrent(), articleListVO.getSize());
-        IPage<ArticleListPageDTO> articleListPage = articleService.getArticleListPage(page, articleListVO);
-        long total = articleListPage.getTotal();
-        List<ArticleListPageDTO> articles = articleListPage.getRecords();
-        if(!articles.isEmpty()) {
-            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList",articles).data("total", total);
+        PageDTO<ArticleListPageBackDTO> pageDTO = articleService.listArticlePageBackDTO(articleListVO);
+        if(!pageDTO.getRecords().isEmpty()) {
+            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", pageDTO.getRecords()).data("total", pageDTO.getTotal());
         } else
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
     }
@@ -62,5 +57,11 @@ public class ArticleController {
     public Result topArticleById(@Valid @RequestBody ArticleTopVO articleTopVO) {
         articleService.topArticleById(articleTopVO.getArticleId(), articleTopVO.getIsTop());
         return Result.success().codeAndMessage(ResultEnums.SUCCESS);
+    }
+
+    @ApiOperation(value = "获取后台文章总数(包括草稿)")
+    @GetMapping(value = "/api/admin/article/countArticleBack")
+    public Result countArticleBack() {
+        return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("totalArticle", articleService.countArticleBack());
     }
 }
