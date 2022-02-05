@@ -39,6 +39,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     private ArticleTagService articleTagService;
 
+    /* 
+    * @Description: 保存或修改文章 
+    * @Param: [articleVO] 
+    * @return: void 
+    * @Author: Finn
+    * @Date: 2022/02/05 16:19
+    */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateArticle(ArticleVO articleVO) {
@@ -72,11 +79,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
     }
 
+    /* 
+    * @Description: admin system 获取文章分页 
+    * @Param: [page, articleListVO] 
+    * @return: com.baomidou.mybatisplus.core.metadata.IPage<com.finn.dto.ArticleListPageDTO> 
+    * @Author: Finn
+    * @Date: 2022/02/05 16:19
+    */
     @Override
     public IPage<ArticleListPageDTO> getArticleListPage(Page<ArticleListPageDTO> page, ArticleListVO articleListVO) {
         return this.baseMapper.getArticleListPage(page, articleListVO);
     }
 
+    /* 
+    * @Description: 置顶一篇文章
+    * @Param: [articleId, isTop] 
+    * @return: void 
+    * @Author: Finn
+    * @Date: 2022/02/05 16:23
+    */
     @Override
     public void topArticleById(Integer articleId, Boolean isTop) {
         this.baseMapper.topArticleById(articleId, isTop);

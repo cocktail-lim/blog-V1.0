@@ -19,13 +19,12 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Api(tags = "菜单展示模块")
-@RequestMapping(value = "/api")
 public class MenuController {
     @Autowired
     MenuService menuService;
 
     @ApiOperation(value = "根据角色获取展示菜单列表")
-    @GetMapping("/admin/getMenus") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
+    @GetMapping("/api/admin/getMenus") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
     public Result getMenuByRoleName(@RequestParam String roleName){
         return new Result().success().codeAndMessage(ResultEnums.SUCCESS).data("menuList", menuService.getMenuListByRoleName(roleName));
     }

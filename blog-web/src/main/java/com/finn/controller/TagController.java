@@ -24,14 +24,13 @@ import java.util.List;
  * @since 2022-02-03
  */
 @RestController
-@RequestMapping("/api")
 public class TagController {
 
     @Autowired
     private TagService tagService;
 
     @ApiOperation("获取文章Tag")
-    @GetMapping("/admin/tag/getTag")
+    @GetMapping("/api/admin/tag/getTag")
     public Result getTagList() {
         List<Tag> tagList = tagService.list();
         if(!tagList.isEmpty()) {

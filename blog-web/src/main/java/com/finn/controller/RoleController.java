@@ -22,7 +22,6 @@ import java.util.List;
  * @since 2022-01-18
  */
 @RestController
-@RequestMapping("/api")
 public class RoleController {
 
     @Autowired
@@ -35,7 +34,7 @@ public class RoleController {
     * @Author: Finn
     * @Date: 2022/1/29 
     */
-    @GetMapping("/admin/role/getRoleSelectList")
+    @GetMapping("/api/admin/role/getRoleSelectList")
     public Result getRoleList() {
         List<RoleSelectListDTO> userRoleSelectList = roleService.getUserRoleSelectList();
         if(!userRoleSelectList.isEmpty())

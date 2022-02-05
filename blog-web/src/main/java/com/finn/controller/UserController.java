@@ -24,7 +24,6 @@ import java.util.List;
  * @since 2022-01-18
  */
 @RestController
-@RequestMapping(value = "/api")
 @Api(value = "UserController")
 public class UserController {
 
@@ -32,7 +31,7 @@ public class UserController {
     UserService userService;
 
     @ApiOperation(value = "根据用户角色和昵称分页查询用户列表")
-    @GetMapping(value = "/admin/user/getUserList")
+    @GetMapping(value = "/api/admin/user/getUserList")
     public Result getUserByCondition(UserQueryVO userQueryVO) { //不带传入参数说明，springboot会自动添加参数信息
         Page<UserListPageDTO> page = new Page<>(userQueryVO.getCurrent(), userQueryVO.getSize());
         IPage<UserListPageDTO> userList = userService.getUserList(page, userQueryVO);
@@ -44,7 +43,7 @@ public class UserController {
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
     }
 
-    @GetMapping(value = "/admin/user/getUserListTest")
+    @GetMapping(value = "/api/admin/user/getUserListTest")
     public Result getUserListTest(@RequestParam(value = "nickname") String nickname) {
         return Result.success().data("data", userService.getUserListTest(nickname));
     }

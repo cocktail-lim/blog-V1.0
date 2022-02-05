@@ -27,28 +27,26 @@
             a.update_time,
             t.tag_name
         FROM
-            (
-            SELECT
-                article_id,
-                article_title,
-                article_cover,
-                is_top,
-                is_draft,
-                create_time,
-                update_time,
-                category_id
-            FROM
-                tb_article
-            <where>
-<!--                <if test="articleListVO.isDraft != null">-->
-<!--                    and is_draft = #{articleListVO.isDraft}-->
-<!--                </if>-->
-                <if test="articleListVO.articleTitle != null">
-                    and article_title like concat('%',#{articleListVO.articleTitle},'%')
-                </if>
-            </where>
-            ORDER BY is_top DESC, article_id DESC
-            ) AS a
+        (
+        SELECT
+            article_id,
+            article_title,
+            article_cover,
+            is_top,
+            is_draft,
+            create_time,
+            update_time,
+            category_id
+        FROM
+            tb_article
+        <where>
+            <if test="articleListVO.articleTitle != null">
+                and article_title like concat('%',#{articleListVO.articleTitle},'%')
+            </if>
+        </where>
+        ORDER BY is_top DESC, article_id DESC
+        LIMIT #{articleListVO.current}, #{articleListVO.size}
+        ) AS a
         LEFT JOIN tb_category c ON a.category_id = c.category_id
         LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id
         LEFT JOIN tb_tag t ON t.tag_id = atg.tag_id
@@ -65,17 +63,3 @@
         where article_id = #{articleId}
     </update>
 </mapper>
-<!--    <insert id="createArticle">-->
-<!--        insert-->
-<!--        into tb_article a-->
-<!--        (article_title, article_content, article_cover, category_id, is_top, create_time, update_time)-->
-<!--        values(-->
-<!--        #{ArticleUpdateVO.articleTitle},-->
-<!--        #{ArticleUpdateVO.articleContent},-->
-<!--        #{ArticleUpdateVO.articleCover},-->
-<!--        #{ArticleUpdateVO.categoryId},-->
-<!--        #{ArticleUpdateVO.isTop},-->
-<!--        now(),-->
-<!--        now()-->
-<!--        )-->
-<!--    </insert>-->

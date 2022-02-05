@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2022/02/03 15:07
  */
 @RestController
-@RequestMapping("/api")
 public class SessionController {
 
     @GetMapping(value = "/api/session/invalid")

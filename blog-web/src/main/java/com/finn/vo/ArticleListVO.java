@@ -19,9 +19,7 @@ import java.io.Serializable;
 @ToString
 @Accessors(chain = true)
 @ApiModel(value = "ArticleListVO", description = "后台文章列表查询条件")
-public class ArticleListVO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ArticleListVO {
 
     @ApiModelProperty(value = "当前页， 默认为1")
     private Integer current = 1;

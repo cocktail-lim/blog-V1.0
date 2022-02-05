@@ -5,6 +5,7 @@ import com.finn.entity.Category;
 import com.finn.enums.ResultEnums;
 import com.finn.service.CategoryService;
 import com.finn.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +25,13 @@ import java.util.List;
  * @since 2022-02-03
  */
 @RestController
-@RequestMapping("/api")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @ApiOperation("获取文章分类")
-    @GetMapping("/admin/category/getCategory")
+    @GetMapping("/api/admin/category/getCategory")
     public Result getCategoryList() {
         List<Category> categoryList = categoryService.list();
         if(!categoryList.isEmpty()) {
