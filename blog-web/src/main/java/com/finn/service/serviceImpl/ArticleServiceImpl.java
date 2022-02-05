@@ -2,6 +2,7 @@ package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.finn.dto.ArticleListPageBackDTO;
+import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.dto.PageDTO;
 import com.finn.entity.Article;
 import com.finn.entity.ArticleTag;
@@ -128,5 +129,33 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public void topArticleById(Integer articleId, Boolean isTop) {
         this.baseMapper.topArticleById(articleId, isTop);
+    }
+
+    /*
+     * @Description: 获取展示页文章列表
+     * @Param: [articleListVO]
+     * @return: java.util.List<com.finn.dto.ArticleListPageBackDTO>
+     * @Author: Finn
+     * @Date: 2022/02/05 20:17
+     */
+    @Override
+    public List<ArticlePreviewPageDTO> listArticlePreview(ArticleListVO articleListVO) {
+        return this.baseMapper.listArticlePreview(articleListVO);
+    }
+
+    /* 
+    * @Description: 返回给前端展示页的文章列表 
+    * @Param: [articleListVO] 
+    * @return: com.finn.dto.PageDTO<com.finn.dto.ArticlePreviewPageDTO> 
+    * @Author: Finn
+    * @Date: 2022/02/05 20:58
+    */
+    @Override
+    public PageDTO<ArticlePreviewPageDTO> listArticlePreviewPageDTO(ArticleListVO articleListVO) {
+        articleListVO.setCurrent((articleListVO.getCurrent() - 1) * articleListVO.getSize()); // 初始位置[不包括]
+        long total = this.countArticleBack();
+        if(total == 0) return new PageDTO<>();
+        List<ArticlePreviewPageDTO> list = listArticlePreview(articleListVO);
+        return new PageDTO<>(list, total);
     }
 }

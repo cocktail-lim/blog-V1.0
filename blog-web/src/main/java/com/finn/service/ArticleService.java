@@ -1,6 +1,7 @@
 package com.finn.service;
 
 import com.finn.dto.ArticleListPageBackDTO;
+import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.dto.PageDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -67,5 +68,23 @@ public interface ArticleService extends IService<Article> {
     * @Date: 2022/02/04 21:12
     */
    void topArticleById(Integer articleId, Boolean isTop);
+
+    /*
+     * @Description: 获取展示页文章列表
+     * @Param: [articleListVO]
+     * @return: java.util.List<com.finn.dto.ArticleListPageBackDTO>
+     * @Author: Finn
+     * @Date: 2022/02/05 20:17
+     */
+    List<ArticlePreviewPageDTO> listArticlePreview(ArticleListVO articleListVO);
+
+   /*
+   * @Description: 返回给前端展示页的文章列表
+   * @Param: [articleListVO]
+   * @return: com.finn.dto.PageDTO<com.finn.dto.ArticlePreviewPageDTO>
+   * @Author: Finn
+   * @Date: 2022/02/05 20:56
+   */
+   PageDTO<ArticlePreviewPageDTO> listArticlePreviewPageDTO(ArticleListVO articleListVO);
 }
 

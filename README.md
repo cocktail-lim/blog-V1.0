@@ -107,7 +107,7 @@ It is developed by Finn.
   - articleTitle: 文章标题
     - 可模糊查询
 
-- **return**: 
+- **Return**: 
   - List **articleList**
   - long **total**
 
@@ -130,6 +130,35 @@ It is developed by Finn.
 - **GET**
 - **Url**: /api/admin/article/countArticleBack
 - **Param**
-- **return**: 
+- **Return**: 
   - Long **totalArticle**
+
+
+
+
+
+## Show Page
+
+##### 根据文章标题分页查询文章列表
+
+- **GET**
+
+- **Url**: /api/admin/article/listArticlePreviewPage
+
+- **Param**: 
+  - current: 当前页，默认为1
+  - size：一页显示个数，默认为10
+  - articleTitle: 文章标题
+    - 可模糊查询
+
+- **Return**: 
+  - List **articleList**
+    - Integer articleId
+    - String articleTitle
+    - String articleCover
+    - String categoryName
+    - Boolean isTop
+    - Date createTime
+    - List<String> tagList
+  - long **total**
 

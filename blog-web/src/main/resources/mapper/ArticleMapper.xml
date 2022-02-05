@@ -14,6 +14,17 @@
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
+    <resultMap id="listArticlePreviewPageMap" type="com.finn.dto.ArticlePreviewPageDTO">
+        <id column="article_id" property="articleId"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="is_top" property="isTop"/>
+        <result column="create_time" property="createTime"/>
+        <collection property="tagList" ofType="string">
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
 
     <select id="countArticleBack" resultType="java.lang.Long">
         SELECT count(*) from tb_article
@@ -67,4 +78,42 @@
         </set>
         where article_id = #{articleId}
     </update>
+
+    <select id="listArticlePreview" resultMap="listArticlePreviewPageMap">
+        SELECT
+        a.article_id,
+        a.article_title,
+        a.article_cover,
+        ca.category_name,
+        a.is_top,
+        a.create_time,
+        t.tag_name
+        FROM
+        (
+        SELECT
+        article_id,
+        article_title,
+        article_cover,
+        is_top,
+        is_draft,
+        create_time,
+        category_id
+        FROM
+        tb_article
+        <where>
+            is_draft = 0
+            <if test="articleListVO.articleTitle != null">
+                and article_title like concat('%',#{articleListVO.articleTitle},'%')
+            </if>
+        </where>
+        ORDER BY is_top DESC, article_id DESC
+        LIMIT #{articleListVO.current}, #{articleListVO.size}
+        <!-- 第一个参数是输出记录的初始位置，第二个参数偏移量 -->
+        ) AS a
+        LEFT JOIN tb_category c ON a.category_id = c.category_id
+        LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id
+        LEFT JOIN tb_tag t ON t.tag_id = atg.tag_id
+        LEFT JOIN tb_category ca ON a.category_id = ca.category_id
+        ORDER BY is_top DESC, a.article_id DESC
+    </select>
 </mapper>
