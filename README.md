@@ -153,12 +153,12 @@ It is developed by Finn.
 
 - **Return**: 
   - List **articleList**
-    - Integer articleId
-    - String articleTitle
-    - String articleCover
-    - String categoryName
-    - Boolean isTop
-    - Date createTime
-    - List<String> tagList
+    - `Integer articleId`
+    - `String articleTitle`
+    - `String articleCover`
+    - `String categoryName`
+    - `Boolean isTop`
+    - `Date createTime`
+    - `List<String> tagList`
   - long **total**
 
