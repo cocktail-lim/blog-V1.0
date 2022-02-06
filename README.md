@@ -64,7 +64,7 @@ It is developed by Finn.
 - **POST**
 - **Url**: /api/admin/article/saveOrUpdateArticle
 - **Param**
-  - *Integer **articleId**: null为新增文章，非null为指定id的文章进行修改
+  - *Integer **id**: null为新增文章，非null为指定id的文章进行修改
   - *String **articleTitle**: 文章标题
   - String **articleContent**: 文章内容
   - String **articleCover**: 文章封面 url 链接
@@ -153,7 +153,7 @@ It is developed by Finn.
 
 - **Return**: 
   - List **articleList**
-    - `Integer articleId`
+    - `Integer id`
     - `String articleTitle`
     - `String articleCover`
     - `String categoryName`
@@ -175,7 +175,7 @@ It is developed by Finn.
 
 - **Return**: 
   - List **articleList**
-    - `Integer articleId`
+    - `Integer id`
     - `String articleTitle`
     - `String articleContent`
     - `String categoryName`
