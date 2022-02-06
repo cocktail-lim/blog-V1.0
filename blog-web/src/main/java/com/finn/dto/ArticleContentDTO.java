@@ -44,5 +44,5 @@ public class ArticleContentDTO {
     private Date updateTime;
 
     @ApiModelProperty("标签Id")
-    private List<String> tagList;
+    private List<TagDTO> tagList;
 }

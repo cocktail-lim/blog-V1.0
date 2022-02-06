@@ -3,7 +3,7 @@ package com.finn.controller;
 
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
-import com.finn.dto.PageDTO;
+import com.finn.entity.IPage;
 import com.finn.enums.ResultEnums;
 import com.finn.service.ArticleService;
 import com.finn.utils.Result;
@@ -46,9 +46,9 @@ public class ArticleController {
     @ApiOperation(value = "获取后台文章列表")
     @GetMapping(value = "/api/admin/article/listArticleBackPage")
     public Result getArticleListPage(ArticleListVO articleListVO) {
-        PageDTO<ArticleListPageBackDTO> pageDTO = articleService.listArticlePageBackDTO(articleListVO);
-        if (!pageDTO.getRecords().isEmpty()) {
-            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", pageDTO.getRecords()).data("total", pageDTO.getTotal());
+        IPage<ArticleListPageBackDTO> IPage = articleService.listArticlePageBackDTO(articleListVO);
+        if (!IPage.getRecords().isEmpty()) {
+            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", IPage.getRecords()).data("total", IPage.getTotal());
         } else
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
     }
@@ -69,9 +69,9 @@ public class ArticleController {
     @ApiOperation(value = "获取展示页文章列表")
     @GetMapping(value = "/api/article/listArticlePreviewPage")
     public Result listArticlePreviewPage(ArticleListVO articleListVO) {
-        PageDTO<ArticlePreviewPageDTO> pageDTO = articleService.listArticlePreviewPageDTO(articleListVO);
-        if (!pageDTO.getRecords().isEmpty()) {
-            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", pageDTO.getRecords()).data("total", pageDTO.getTotal());
+        IPage<ArticlePreviewPageDTO> IPage = articleService.listArticlePreviewPageDTO(articleListVO);
+        if (!IPage.getRecords().isEmpty()) {
+            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", IPage.getRecords()).data("total", IPage.getTotal());
         } else
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
     }

@@ -16,7 +16,6 @@ import java.util.List;
  * @author finn
  * @since 2022-01-20
  */
-@Service
 public interface MenuService extends IService<Menu> {
 
     /*

@@ -1,11 +1,8 @@
 package com.finn.mapper;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.finn.dto.ArticleContentDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
-import com.finn.dto.PageDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.finn.vo.ArticleListVO;

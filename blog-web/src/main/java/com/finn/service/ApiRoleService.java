@@ -10,7 +10,6 @@ import java.util.List;
  * @author: Finn
  * @create: 2022/01/30 18:26
  */
-@Service
 public interface ApiRoleService {
 
     /*

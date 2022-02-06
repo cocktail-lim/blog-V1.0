@@ -50,6 +50,9 @@ public class Article implements Serializable {
     @ApiModelProperty("文章内容")
     private String articleContent;
 
+    @ApiModelProperty("文章预览内容")
+    private String articlePreviewContent;
+
     @ApiModelProperty("是否置顶 0：不置顶 1：置顶")
     private Boolean isTop;
 

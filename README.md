@@ -159,7 +159,9 @@ It is developed by Finn.
     - `String categoryName`
     - `Boolean isTop`
     - `Date createTime`
-    - `List<String> tagList`
+    - `List<Tag> tagList`
+      - Integer tagId
+      - String tagName
   - long **total**
 
 
@@ -181,5 +183,31 @@ It is developed by Finn.
     - `String categoryName`
     - `Date createTime`
     - `Date updateTime`
-    - `List<String> tagList`
+    - `List<Tag> tagList`
+      - Integer tagId
+      - String tagName
+
+
+
+获取pages
+
+- **GET**
+
+- **Url**: /api/listPages
+
+- **Param**:
+
+- **Return**: 
+
+  - List **articleList**
+
+    - `Integer pageId`
+
+    - `String pageName`
+
+    - `String pageDescription`
+
+    - `String pageCover`
+
+      
 

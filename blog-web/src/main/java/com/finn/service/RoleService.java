@@ -15,7 +15,6 @@ import java.util.List;
  * @author finn
  * @since 2022-01-18
  */
-@Service
 public interface RoleService extends IService<Role> {
     /* 
     * @Description: 用户角色下拉列表选项 角色名 个数

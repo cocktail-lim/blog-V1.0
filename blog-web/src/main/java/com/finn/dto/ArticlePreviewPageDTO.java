@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,9 @@ public class ArticlePreviewPageDTO {
     @ApiModelProperty("分类名")
     private String categoryName;
 
+    @ApiModelProperty("文章预览内容")
+    private String articlePreviewContent;
+
     @ApiModelProperty("是否置顶 0：不置顶 1：置顶")
     private Boolean isTop;
 
@@ -44,5 +48,5 @@ public class ArticlePreviewPageDTO {
     private Date createTime;
 
     @ApiModelProperty("标签Id")
-    private List<String> tagList;
+    private List<TagDTO> tagList;
 }

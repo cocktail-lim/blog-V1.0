@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
  * @author finn
  * @since 2022-02-03
  */
-@Service
 public interface CategoryService extends IService<Category> {
 
 }

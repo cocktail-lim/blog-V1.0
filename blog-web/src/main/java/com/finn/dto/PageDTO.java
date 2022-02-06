@@ -1,25 +1,28 @@
 package com.finn.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
+import lombok.*;
 
 /*
- * @description: 分页
+ * @description: show page 页面DTO
  * @author: Finn
- * @create: 2022/02/05 19:46
+ * @create: 2022/02/06 19:46
  */
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageDTO<T> {
+public class PageDTO {
 
-    /*分页列表*/
-    private List<T> records;
+    /*页面ID*/
+    private Integer pageId;
 
-    /*总数*/
-    private long total;
+    /*页面名字*/
+    private String pageName;
+
+    /*描述*/
+    private String pageDescription;
+
+    /*页面封面*/
+    private String pageCover;
 
 }

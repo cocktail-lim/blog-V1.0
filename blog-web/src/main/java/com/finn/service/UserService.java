@@ -18,7 +18,6 @@ import java.util.List;
  * @author finn
  * @since 2022-01-18
  */
-@Service
 public interface UserService extends IService<User> {
 
     List<UserListPageDTO> getUserListTest(String nickname);

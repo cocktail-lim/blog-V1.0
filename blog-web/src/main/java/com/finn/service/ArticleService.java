@@ -3,13 +3,11 @@ package com.finn.service;
 import com.finn.dto.ArticleContentDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
-import com.finn.dto.PageDTO;
+import com.finn.entity.IPage;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -21,7 +19,6 @@ import java.util.List;
  * @author finn
  * @since 2022-02-03
  */
-@Service
 public interface ArticleService extends IService<Article> {
 
     /*
@@ -59,7 +56,7 @@ public interface ArticleService extends IService<Article> {
     * @Date: 2022/02/04 14:51
     */
 //    IPage<ArticleListPageBackDTO> getArticleListPage(Page<ArticleListPageBackDTO> page, ArticleListVO articleListVO);
-    PageDTO<ArticleListPageBackDTO> listArticlePageBackDTO(ArticleListVO articleListVO);
+    IPage<ArticleListPageBackDTO> listArticlePageBackDTO(ArticleListVO articleListVO);
 
     /*
     * @Description: 置顶文章
@@ -82,11 +79,11 @@ public interface ArticleService extends IService<Article> {
    /*
    * @Description: 返回给前端展示页的文章列表
    * @Param: [articleListVO]
-   * @return: com.finn.dto.PageDTO<com.finn.dto.ArticlePreviewPageDTO>
+   * @return: com.finn.entity.IPage<com.finn.dto.ArticlePreviewPageDTO>
    * @Author: Finn
    * @Date: 2022/02/05 20:56
    */
-   PageDTO<ArticlePreviewPageDTO> listArticlePreviewPageDTO(ArticleListVO articleListVO);
+   IPage<ArticlePreviewPageDTO> listArticlePreviewPageDTO(ArticleListVO articleListVO);
 
    /*
    * @Description: 展示文章内容
