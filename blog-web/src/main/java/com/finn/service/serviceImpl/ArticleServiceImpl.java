@@ -1,6 +1,7 @@
 package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.finn.dto.ArticleContentDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.dto.PageDTO;
@@ -48,7 +49,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public void saveOrUpdateArticle(ArticleVO articleVO) {
         Article article = Article.builder()
-                .articleId(articleVO.getArticleId())
+                .id(articleVO.getArticleId())
                 .articleTitle(articleVO.getArticleTitle())
                 .articleContent(articleVO.getArticleContent())
                 .articleCover(articleVO.getArticleCover())
@@ -69,7 +70,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if(!articleVO.getTagList().isEmpty()) {
             List<ArticleTag> articleTagList = articleVO.getTagList().stream().map(tagId -> ArticleTag.builder()
                             .id(null)
-                            .articleId(article.getArticleId())
+                            .articleId(article.getId())
                             .tagId(tagId)
                             .build())
                     .collect(Collectors.toList());
@@ -157,5 +158,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if(total == 0) return new PageDTO<>();
         List<ArticlePreviewPageDTO> list = listArticlePreview(articleListVO);
         return new PageDTO<>(list, total);
+    }
+
+    /* 
+    * @Description: 展示文章内容 
+    * @Param: [articleId] 
+    * @return: java.util.List<com.finn.dto.ArticleContentDTO> 
+    * @Author: Finn
+    * @Date: 2022/02/05 21:42
+    */
+    @Override
+    public List<ArticleContentDTO> showArticleContent(Integer articleId) {
+        return this.baseMapper.showArticleContent(articleId);
     }
 }

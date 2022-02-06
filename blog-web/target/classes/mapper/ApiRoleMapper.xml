@@ -7,12 +7,12 @@
         a.api_id as apiId,
         a.url as url,
         a.method as method,
-        r.role_id as roleId,
+        r.id as roleId,
         r.role_name as roleName
         FROM
         tb_api a
         LEFT JOIN tb_api_role ar on a.api_id = ar.api_id
-        LEFT JOIN tb_role r on ar.role_id = r.role_id
+        LEFT JOIN tb_role r on ar.role_id = r.id
         WHERE
         url IS NOT NULL
     </select>

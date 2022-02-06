@@ -1,5 +1,6 @@
 package com.finn.service;
 
+import com.finn.dto.ArticleContentDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.dto.PageDTO;
@@ -86,5 +87,14 @@ public interface ArticleService extends IService<Article> {
    * @Date: 2022/02/05 20:56
    */
    PageDTO<ArticlePreviewPageDTO> listArticlePreviewPageDTO(ArticleListVO articleListVO);
+
+   /*
+   * @Description: 展示文章内容
+   * @Param:
+   * @return:
+   * @Author: Finn
+   * @Date: 2022/02/05 21:35
+   */
+   List<ArticleContentDTO> showArticleContent(Integer articleId);
 }
 

@@ -28,7 +28,7 @@
         a.is_silence
         from  tb_user as a
         join  tb_role_user as c on a.user_id = c.user_id
-        join  tb_role as b on  c.role_id = b.role_id
+        join  tb_role as b on  c.role_id = b.id
         <where>
             <if test = "userQueryVO.roleName != null and userQueryVO.roleName != ''">
                 b.role_name = #{userQueryVO.roleName}
@@ -47,7 +47,7 @@
         a.is_silence
         from  tb_user as a
         join  tb_role_user as c on a.user_id =c.user_id
-        join  tb_role as b on  c.role_id = b.role_id
+        join  tb_role as b on  c.role_id = b.id
         <where>
             <if test = "nickname != null and nickname != ''">
                 and a.nickname like "%"#{nickname}"%"

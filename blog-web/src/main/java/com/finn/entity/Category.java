@@ -29,8 +29,8 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("//分类id")
-    @TableId(value = "category_id", type = IdType.AUTO)
-    private Integer categoryId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @ApiModelProperty("//分类名称")
     private String categoryName;

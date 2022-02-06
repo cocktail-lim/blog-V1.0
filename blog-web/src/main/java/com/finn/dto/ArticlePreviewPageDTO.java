@@ -26,7 +26,7 @@ public class ArticlePreviewPageDTO {
 
     @ApiModelProperty("文章主键id")
     @TableId(type = IdType.AUTO)
-    private Integer articleId;
+    private Integer id;
 
     @ApiModelProperty("文章标题")
     private String articleTitle;

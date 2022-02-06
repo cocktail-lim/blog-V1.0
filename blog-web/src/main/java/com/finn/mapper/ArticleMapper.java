@@ -2,6 +2,7 @@ package com.finn.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.finn.dto.ArticleContentDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.dto.PageDTO;
@@ -59,4 +60,13 @@ public interface ArticleMapper extends BaseMapper<Article> {
     * @Date: 2022/02/05 21:12
     */
     List<ArticlePreviewPageDTO> listArticlePreview(@Param("articleListVO") ArticleListVO articleListVO);
+
+    /*
+    * @Description: 展示文章内容
+    * @Param: [articleId]
+    * @return: java.util.List<com.finn.dto.ArticleContentDTO>
+    * @Author: Finn
+    * @Date: 2022/02/05 21:43
+    */
+    List<ArticleContentDTO> showArticleContent(@Param("articleId") Integer articleId);
 }

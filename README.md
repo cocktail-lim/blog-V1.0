@@ -143,7 +143,7 @@ It is developed by Finn.
 
 - **GET**
 
-- **Url**: /api/admin/article/listArticlePreviewPage
+- **Url**: /api/article/listArticlePreviewPage
 
 - **Param**: 
   - current: 当前页，默认为1
@@ -161,4 +161,25 @@ It is developed by Finn.
     - `Date createTime`
     - `List<String> tagList`
   - long **total**
+
+
+
+##### 根据文章Id查询文章内容
+
+- **GET**
+
+- **Url**: /api/article/showArticleContent
+
+- **Param**: 
+  - *Integer articleId 
+
+- **Return**: 
+  - List **articleList**
+    - `Integer articleId`
+    - `String articleTitle`
+    - `String articleContent`
+    - `String categoryName`
+    - `Date createTime`
+    - `Date updateTime`
+    - `List<String> tagList`
 

@@ -95,7 +95,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                 .filter(Objects::nonNull)
                 .forEach(item -> {
                     MenuDTO menuDTO = new MenuDTO();
-                    menuDTO.setMenuId(item.getMenuId())
+                    menuDTO.setMenuId(item.getId())
 //                    .setDescription(item.getDescription())
                     .setMenuIcon(item.getMenuIcon())
                     .setMenuName(item.getMenuName())

@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 public class TagDTO {
 
     @TableId(type = IdType.AUTO)
-    private Integer tagId;
+    private Integer id;
 
     private String tagName;
 

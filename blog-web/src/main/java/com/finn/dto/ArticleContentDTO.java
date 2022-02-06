@@ -4,42 +4,38 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
 /*
- * @description: Admin System文章列表
+ * @description: 文章内容展示
  * @author: Finn
- * @create: 2022/02/04 11:48
+ * @create: 2022/02/05 21:39
  */
-@Getter
 @Setter
-@ToString
-@Accessors(chain = true)
-@ApiModel(value = "Admin ArticleListPageBackDTO", description = "后台文章列表")
-public class ArticleListPageBackDTO {
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ApiModel(value = "ArticleContentDTO", description = "展示页文章内容")
+public class ArticleContentDTO {
 
     @ApiModelProperty("文章主键id")
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Integer articleId;
 
     @ApiModelProperty("文章标题")
     private String articleTitle;
 
-    @ApiModelProperty("文章封面")
-    private String articleCover;
+    @ApiModelProperty("文章内容")
+    private String articleContent;
 
     @ApiModelProperty("分类名")
     private String categoryName;
-
-    @ApiModelProperty("是否置顶 0：不置顶 1：置顶")
-    private Boolean isTop;
-
-    @ApiModelProperty("是否草稿 0：不是草稿 1:草稿")
-    private Boolean isDraft;
 
     @ApiModelProperty("创建时间")
     private Date createTime;

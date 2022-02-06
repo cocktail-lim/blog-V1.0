@@ -28,15 +28,22 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "role_id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty("用户表主键")
-    private Integer roleId;
+    private Integer id;
 
     @ApiModelProperty("角色名")
     private String roleName;
 
+    @ApiModelProperty("角色描述")
+    private String description;
+
+    @ApiModelProperty("是否禁用 0否 1是")
+    private String isDisable;
+
     @ApiModelProperty("创建时间")
     private LocalDateTime createTime;
 
-
+    @ApiModelProperty("更新时间")
+    private LocalDateTime updateTime;
 }

@@ -29,8 +29,8 @@ public class Tag implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("标签id")
-    @TableId(value = "tag_id", type = IdType.AUTO)
-    private Integer tagId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @ApiModelProperty("标签名称")
     private String tagName;

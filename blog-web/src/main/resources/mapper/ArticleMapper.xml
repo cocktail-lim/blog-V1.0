@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.ArticleMapper">
     <resultMap id="getArticleListPageMap" type="com.finn.dto.ArticleListPageBackDTO">
-        <id column="article_id" property="articleId"/>
+        <id column="id" property="id"/>
         <result column="article_title" property="articleTitle"/>
         <result column="article_cover" property="articleCover"/>
         <result column="category_name" property="categoryName"/>
@@ -15,12 +15,23 @@
         </collection>
     </resultMap>
     <resultMap id="listArticlePreviewPageMap" type="com.finn.dto.ArticlePreviewPageDTO">
-        <id column="article_id" property="articleId"/>
+        <id column="id" property="id"/>
         <result column="article_title" property="articleTitle"/>
         <result column="article_cover" property="articleCover"/>
         <result column="category_name" property="categoryName"/>
         <result column="is_top" property="isTop"/>
         <result column="create_time" property="createTime"/>
+        <collection property="tagList" ofType="string">
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+    <resultMap id="showArticleContentMap" type="com.finn.dto.ArticleContentDTO">
+        <id column="id" property="id"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_content" property="articleContent"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
         <collection property="tagList" ofType="string">
             <result column="tag_name" property="tagName"/>
         </collection>
@@ -32,10 +43,10 @@
 
     <select id="listArticlePageBack" resultMap="getArticleListPageMap">
         SELECT
-            a.article_id,
+            a.id,
             a.article_title,
             a.article_cover,
-            ca.category_name,
+            c.category_name,
             a.is_top,
             a.is_draft,
             a.create_time,
@@ -44,7 +55,7 @@
         FROM
         (
         SELECT
-            article_id,
+            id,
             article_title,
             article_cover,
             is_top,
@@ -59,15 +70,14 @@
                 and article_title like concat('%',#{articleListVO.articleTitle},'%')
             </if>
         </where>
-        ORDER BY is_top DESC, article_id DESC
+        ORDER BY is_top DESC, id DESC
         LIMIT #{articleListVO.current}, #{articleListVO.size}
         <!-- 第一个参数是输出记录的初始位置，第二个参数偏移量 -->
         ) AS a
-        LEFT JOIN tb_category c ON a.category_id = c.category_id
-        LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id
-        LEFT JOIN tb_tag t ON t.tag_id = atg.tag_id
-        LEFT JOIN tb_category ca ON a.category_id = ca.category_id
-        ORDER BY is_top DESC, a.article_id DESC
+        LEFT JOIN tb_category c ON a.id = c.id
+        LEFT JOIN tb_article_tag atg ON a.id = atg.article_id
+        LEFT JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY is_top DESC, a.id DESC
     </select>
 
     <update id="topArticleById">
@@ -76,22 +86,22 @@
         <set>
         is_top = #{isTop}
         </set>
-        where article_id = #{articleId}
+        where id = #{articleId}
     </update>
 
     <select id="listArticlePreview" resultMap="listArticlePreviewPageMap">
         SELECT
-        a.article_id,
+        a.id,
         a.article_title,
         a.article_cover,
-        ca.category_name,
+        c.category_name,
         a.is_top,
         a.create_time,
         t.tag_name
         FROM
         (
         SELECT
-        article_id,
+        id,
         article_title,
         article_cover,
         is_top,
@@ -106,14 +116,31 @@
                 and article_title like concat('%',#{articleListVO.articleTitle},'%')
             </if>
         </where>
-        ORDER BY is_top DESC, article_id DESC
+        ORDER BY is_top DESC, id DESC
         LIMIT #{articleListVO.current}, #{articleListVO.size}
         <!-- 第一个参数是输出记录的初始位置，第二个参数偏移量 -->
         ) AS a
-        LEFT JOIN tb_category c ON a.category_id = c.category_id
-        LEFT JOIN tb_article_tag atg ON a.article_id = atg.article_id
-        LEFT JOIN tb_tag t ON t.tag_id = atg.tag_id
-        LEFT JOIN tb_category ca ON a.category_id = ca.category_id
-        ORDER BY is_top DESC, a.article_id DESC
+        LEFT JOIN tb_category c ON a.category_id = c.id
+        LEFT JOIN tb_article_tag atg ON a.id = atg.article_id
+        LEFT JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY is_top DESC, a.id DESC
+    </select>
+
+    <select id="showArticleContent"  resultMap="showArticleContentMap">
+        select
+            a.id,
+            a.article_title,
+            a.article_content,
+            c.category_name,
+            a.create_time,
+            a.update_time,
+            t.tag_name as tag_name
+        from
+            tb_article a, tb_article_tag ata, tb_tag t, tb_category c
+        where
+        a.id = ata.article_id
+        and ata.tag_id = t.id
+        and a.category_id = c.id
+        and a.id = #{articleId}
     </select>
 </mapper>

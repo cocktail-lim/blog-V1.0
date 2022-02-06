@@ -32,7 +32,7 @@ public class ArticleController {
 
     @ApiOperation(value = "获取文章")
     @GetMapping(value = "/api/article/getArticle")
-    public Result getArticle(){
+    public Result getArticle() {
         return Result.success();
     }
 
@@ -45,9 +45,9 @@ public class ArticleController {
 
     @ApiOperation(value = "获取后台文章列表")
     @GetMapping(value = "/api/admin/article/listArticleBackPage")
-    public Result getArticleListPage(ArticleListVO articleListVO){
+    public Result getArticleListPage(ArticleListVO articleListVO) {
         PageDTO<ArticleListPageBackDTO> pageDTO = articleService.listArticlePageBackDTO(articleListVO);
-        if(!pageDTO.getRecords().isEmpty()) {
+        if (!pageDTO.getRecords().isEmpty()) {
             return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", pageDTO.getRecords()).data("total", pageDTO.getTotal());
         } else
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
@@ -67,12 +67,21 @@ public class ArticleController {
     }
 
     @ApiOperation(value = "获取展示页文章列表")
-    @GetMapping(value = "/api/admin/article/listArticlePreviewPage")
-    public Result listArticlePreviewPage(ArticleListVO articleListVO){
+    @GetMapping(value = "/api/article/listArticlePreviewPage")
+    public Result listArticlePreviewPage(ArticleListVO articleListVO) {
         PageDTO<ArticlePreviewPageDTO> pageDTO = articleService.listArticlePreviewPageDTO(articleListVO);
-        if(!pageDTO.getRecords().isEmpty()) {
+        if (!pageDTO.getRecords().isEmpty()) {
             return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", pageDTO.getRecords()).data("total", pageDTO.getTotal());
         } else
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
+    }
+
+    @ApiOperation(value = "获取展示页文章内容")
+    @GetMapping(value = "/api/article/showArticleContent")
+    public Result showArticleContent(@RequestParam Integer articleId) {
+        return Result
+                .success()
+                .codeAndMessage(ResultEnums.SUCCESS)
+                .data("articleContent", articleService.showArticleContent(articleId));
     }
 }
