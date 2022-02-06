@@ -18,16 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-02-06
  */
 @RestController
-@ApiModel(value = "show page 页面")
+@ApiModel(value = "页面")
 public class PageController {
-
-    @Autowired
-    private PageService pageService;
-
-    @ApiOperation(value = "根据角色获取展示菜单列表")
-    @GetMapping("/api/listPages")
-    public Result listPages() {
-        return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("pageList", pageService.listPages());
-    }
 
 }

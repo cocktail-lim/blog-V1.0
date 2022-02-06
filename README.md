@@ -139,6 +139,29 @@ It is developed by Finn.
 
 ## Show Page
 
+### 首页
+
+#### 获取首页内容
+
+- **GET**
+- **Url**: /api/home
+- **Param**:
+- **Return**: 
+  - List homeInfo:
+    - Integer articleCount
+    - Integer categoryCount
+    - Integer tagCount
+    - String viewsCount
+    - List **articleList**
+      - `Integer pageId`
+      - `String pageName`
+      - `String pageDescription`
+      - `String pageCover`
+
+
+
+#### 文章内容
+
 ##### 根据文章标题分页查询文章列表
 
 - **GET**
@@ -188,26 +211,4 @@ It is developed by Finn.
       - String tagName
 
 
-
-获取pages
-
-- **GET**
-
-- **Url**: /api/listPages
-
-- **Param**:
-
-- **Return**: 
-
-  - List **articleList**
-
-    - `Integer pageId`
-
-    - `String pageName`
-
-    - `String pageDescription`
-
-    - `String pageCover`
-
-      
 
