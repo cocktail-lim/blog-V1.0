@@ -135,6 +135,16 @@ It is developed by Finn.
 
 
 
+##### <u>恢复或者逻辑删除博客</u>
+
+- <u>**POST**</u>
+
+- <u>**Url**: /api/admin/article/recoverOrDeleteArticle</u>
+
+- <u>**Param**:</u> 
+  - <u>*`List<Integer>` **idList**;:  文章id</u>
+  - <u>Boolean **isDelete**：逻辑删除1，文章恢复0</u>
+
 
 
 ## Show Page
@@ -147,12 +157,12 @@ It is developed by Finn.
 - **Url**: /api/home
 - **Param**:
 - **Return**: 
-  - List homeInfo:
+  - homeInfo:
     - Integer articleCount
     - Integer categoryCount
     - Integer tagCount
     - String viewsCount
-    - List **articleList**
+    - List **pageList**
       - `Integer pageId`
       - `String pageName`
       - `String pageDescription`

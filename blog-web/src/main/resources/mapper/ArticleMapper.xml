@@ -42,6 +42,11 @@
 
     <select id="countArticleBack" resultType="java.lang.Long">
         SELECT count(*) from tb_article
+        <where>
+            <if test="isShowPage == true">
+                is_draft = 0
+            </if>
+        </where>
     </select>
 
     <select id="listArticlePageBack" resultMap="listArticlePageBackMap">

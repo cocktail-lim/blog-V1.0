@@ -6,6 +6,7 @@ import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.finn.vo.ArticleListVO;
+import com.finn.vo.DeleteVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,13 +24,13 @@ import java.util.List;
 public interface ArticleMapper extends BaseMapper<Article> {
 
     /* 
-    * @Description: 获取后台文章总数
-    * @Param: [] 
+    * @Description: 获取前/后台文章总数 前台：isShowPage为true， 后台：isShowPage为false
+    * @Param: [isShowPage]
     * @return: long 
     * @Author: Finn
     * @Date: 2022/02/05 19:59
     */
-    Long countArticleBack();
+    Long countArticleBack(@Param("isShowPage") Boolean isShowPage);
 
     /*
     * @Description: 根据 articleListVO 获取文章列表

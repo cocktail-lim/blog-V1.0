@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.finn.service.ArticleTagService;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
+import com.finn.vo.DeleteVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,8 +91,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     * @Date: 2022/02/05 19:59
     */
     @Override
-    public Long countArticleBack() {
-        return this.baseMapper.countArticleBack();
+    public Long countArticleBack(Boolean isShowPage) {
+        return this.baseMapper.countArticleBack(isShowPage);
     }
 
     /*
@@ -118,7 +119,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // LIMIT #{articleListVO.current}, #{articleListVO.size}
         // 第一个参数是输出记录的初始位置，第二个参数偏移量
         articleListVO.setCurrent((articleListVO.getCurrent() - 1) * articleListVO.getSize()); // 初始位置[不包括]
-        long total = this.countArticleBack();
+        long total = this.countArticleBack(false);
         if(total == 0) return new IPage<>();
         List<ArticleListPageBackDTO> list = listArticlePageBack(articleListVO);
         return new IPage<>(list, total);
@@ -158,7 +159,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public IPage<ArticlePreviewPageDTO> listArticlePreviewPageDTO(ArticleListVO articleListVO) {
         articleListVO.setCurrent((articleListVO.getCurrent() - 1) * articleListVO.getSize()); // 初始位置[不包括]
-        long total = this.countArticleBack();
+        long total = this.countArticleBack(true); // 仅统计非草稿的文章
         if(total == 0) return new IPage<>();
         List<ArticlePreviewPageDTO> list = listArticlePreview(articleListVO);
         return new IPage<>(list, total);
@@ -174,5 +175,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<ArticleContentDTO> showArticleContent(Integer articleId) {
         return this.baseMapper.showArticleContent(articleId);
+    }
+
+    /*
+    * @Description: 逻辑删除和恢复文章
+    * @Param: [deleteVO]
+    * @return: void
+    * @Author: Finn
+    * @Date: 2022/02/07 12:04
+    */
+    @Override
+    public void recoverOrDeleteArticle(DeleteVO deleteVO) {
+        List<Article> articleList = deleteVO.getIdList()
+                .stream()
+                .map(id -> Article.builder()
+                        .id(id)
+                        .isTop(false)
+                        .isDelete(deleteVO.getIsDelete())
+                        .build()
+                ).collect(Collectors.toList());
+        articleService.updateBatchById(articleList);
     }
 }

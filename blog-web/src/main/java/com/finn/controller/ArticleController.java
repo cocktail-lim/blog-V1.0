@@ -10,11 +10,13 @@ import com.finn.utils.Result;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleTopVO;
 import com.finn.vo.ArticleVO;
+import com.finn.vo.DeleteVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -63,7 +65,14 @@ public class ArticleController {
     @ApiOperation(value = "获取后台文章总数(包括草稿)")
     @GetMapping(value = "/api/admin/article/countArticleBack")
     public Result countArticleBack() {
-        return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("totalArticle", articleService.countArticleBack());
+        return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("totalArticle", articleService.countArticleBack(false));
+    }
+
+    @ApiOperation(value = "逻辑删除和恢复文章")
+    @PostMapping(value = "/api/admin/article/recoverOrDeleteArticle")
+    public Result recoverOrDeleteArticle(@Valid @RequestBody DeleteVO deleteVO) {
+        articleService.recoverOrDeleteArticle(deleteVO);
+        return Result.success().codeAndMessage(ResultEnums.SUCCESS);
     }
 
     @ApiOperation(value = "获取展示页文章列表")
@@ -73,7 +82,7 @@ public class ArticleController {
         if (!IPage.getRecords().isEmpty()) {
             return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", IPage.getRecords()).data("total", IPage.getTotal());
         } else
-            return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
+            return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", new ArrayList(0)).data("total", IPage.getTotal());
     }
 
     @ApiOperation(value = "获取展示页文章内容")
@@ -84,4 +93,5 @@ public class ArticleController {
                 .codeAndMessage(ResultEnums.SUCCESS)
                 .data("articleContent", articleService.showArticleContent(articleId));
     }
+
 }

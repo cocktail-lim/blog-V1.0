@@ -8,6 +8,7 @@ import com.finn.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
+import com.finn.vo.DeleteVO;
 
 import java.util.List;
 
@@ -32,12 +33,12 @@ public interface ArticleService extends IService<Article> {
 
     /* 
     * @Description: 获取后台文章总数
-    * @Param: [] 
+    * @Param: [isShowPage]
     * @return: long 
     * @Author: Finn
     * @Date: 2022/02/05 19:59
     */
-    Long countArticleBack();
+    Long countArticleBack(Boolean isShowPage);
 
     /*
     * @Description: 获取后台文章列表 List
@@ -93,5 +94,14 @@ public interface ArticleService extends IService<Article> {
    * @Date: 2022/02/05 21:35
    */
    List<ArticleContentDTO> showArticleContent(Integer articleId);
+
+   /*
+   * @Description: 逻辑删除和恢复文章
+   * @Param:
+   * @return:
+   * @Author: Finn
+   * @Date: 2022/02/07 12:00
+   */
+    void recoverOrDeleteArticle(DeleteVO deleteVO);
 }
 
