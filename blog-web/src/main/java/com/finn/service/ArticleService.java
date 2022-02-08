@@ -93,7 +93,7 @@ public interface ArticleService extends IService<Article> {
    * @Author: Finn
    * @Date: 2022/02/05 21:35
    */
-   List<ArticleContentDTO> showArticleContent(Integer articleId);
+   ArticleContentDTO showArticleContent(Integer articleId);
 
    /*
    * @Description: 逻辑删除和恢复文章

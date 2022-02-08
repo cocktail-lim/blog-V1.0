@@ -66,5 +66,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
     * @Author: Finn
     * @Date: 2022/02/05 21:43
     */
-    List<ArticleContentDTO> showArticleContent(@Param("articleId") Integer articleId);
+    ArticleContentDTO showArticleContent(@Param("articleId") Integer articleId);
 }

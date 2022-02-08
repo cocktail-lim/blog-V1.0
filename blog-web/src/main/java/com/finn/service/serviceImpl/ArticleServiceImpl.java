@@ -173,7 +173,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     * @Date: 2022/02/05 21:42
     */
     @Override
-    public List<ArticleContentDTO> showArticleContent(Integer articleId) {
+    public ArticleContentDTO showArticleContent(Integer articleId) {
         return this.baseMapper.showArticleContent(articleId);
     }
 

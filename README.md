@@ -209,7 +209,7 @@ It is developed by Finn.
   - *Integer articleId 
 
 - **Return**: 
-  - List **articleList**
+  - **articleContent**
     - `Integer id`
     - `String articleTitle`
     - `String articleContent`
