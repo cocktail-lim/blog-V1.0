@@ -1,3 +1,10 @@
+# 端口配置
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 21600
+
 spring:
   application:
     name: blog-web
@@ -9,6 +16,11 @@ spring:
     username: root
     password: admin
 
+  redis:
+    host: localhost
+    port: 6379
+#    password: 123456
+
   devtools:
     restart:
       enabled: false
@@ -17,12 +29,6 @@ mybatis-plus:
   #The classpath*:conf/appContext.xml simply means that allx appContext.xml files under conf folders in all your jars on the classpath will be picked up and joined into one big application context.
   #In contrast, classpath:conf/appContext.xml will load only one such file... the first one found on your classpath.
   mapper-locations: classpath*:/mapper/*.xml
-
-server:
-  port: 8080
-  servlet:
-    session:
-      timeout: 600
 
 enable:
   swagger2: true

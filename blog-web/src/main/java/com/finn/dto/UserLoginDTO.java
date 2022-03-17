@@ -30,6 +30,9 @@ public class UserLoginDTO {
     @ApiModelProperty("用户表主键id")
     private Integer userId;
 
+    @ApiModelProperty("用户信息Id")
+    private Integer userInfoId;
+
     @ApiModelProperty("用户名")
     private String username;
 
@@ -44,6 +47,9 @@ public class UserLoginDTO {
 
     @ApiModelProperty("是否禁言 0：不禁言 1：禁言")
     private Boolean isSilence;
+
+    @ApiModelProperty("用户角色")
+    private List<String> roleList;
 
 //    @ApiModelProperty("token")
 //    private Token token;

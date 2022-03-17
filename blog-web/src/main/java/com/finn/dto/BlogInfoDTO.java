@@ -1,5 +1,6 @@
 package com.finn.dto;
 
+import com.finn.vo.WebsiteConfigVO;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @ToString
 @Builder
 @Accessors(chain = true)
-public class HomeInfoDTO {
+public class BlogInfoDTO {
 
     /**
      * 文章数量
@@ -37,10 +38,10 @@ public class HomeInfoDTO {
      */
     private String viewsCount;
 
-//    /**
-//     * 网站配置
-//     */
-//    private WebsiteConfigVO websiteConfig;
+    /**
+     * 网站配置
+     */
+    private WebsiteConfigVO websiteConfig;
 
     /**
      * 页面列表

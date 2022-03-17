@@ -1,6 +1,7 @@
 package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.finn.dto.ResourceRoleDTO;
 import com.finn.dto.RoleSelectListDTO;
 import com.finn.entity.Role;
 import com.finn.mapper.RoleMapper;
@@ -31,6 +32,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public List<RoleSelectListDTO> getUserRoleSelectList() {
         return this.baseMapper.getUserRoleSelectList();
+    }
+
+    @Override
+    public List<ResourceRoleDTO> listResourceRoles() {
+        return this.baseMapper.listResourceRoles();
     }
 
 }

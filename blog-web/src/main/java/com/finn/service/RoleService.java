@@ -1,5 +1,6 @@
 package com.finn.service;
 
+import com.finn.dto.ResourceRoleDTO;
 import com.finn.dto.RoleSelectListDTO;
 import com.finn.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -25,5 +26,5 @@ public interface RoleService extends IService<Role> {
     */
     List<RoleSelectListDTO> getUserRoleSelectList();
 
-
+    List<ResourceRoleDTO> listResourceRoles();
 }

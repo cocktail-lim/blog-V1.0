@@ -79,8 +79,8 @@ public class WebsiteConfigVO {
     /**
      * qq
      */
-    @ApiModelProperty(name = "qq", value = "qq", required = true, dataType = "String")
-    private String qq;
+    @ApiModelProperty(name = "weibo", value = "weibo", required = true, dataType = "String")
+    private String weibo;
 
     /**
      * github

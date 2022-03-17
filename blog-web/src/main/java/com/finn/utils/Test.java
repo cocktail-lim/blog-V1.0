@@ -1,7 +1,10 @@
 package com.finn.utils;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -52,5 +55,23 @@ public class Test {
         test.permute(nums);
 
 
+    }
+}
+
+class Test1{
+    int[][] people = {{7, 0}, {4, 4}, {7, 1}, {5, 0}, {6, 1}, {5, 2}};
+
+    public int[][] reconstructQueue(int[][] people) {
+        List<int[]> list = new LinkedList<>();
+        Arrays.sort(people, (a, b) -> {
+            if (a[0] != b[0]) return b[0] - a[0];
+            else
+                return b[1] - b[0];
+        });
+
+        for (int[] peo : people) {
+            list.add(peo);
+        }
+        return list.toArray(new int[0][]);
     }
 }

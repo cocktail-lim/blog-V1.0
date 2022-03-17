@@ -15,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface WebsiteConfigMapper extends BaseMapper<WebsiteConfig> {
 
+    String getConfig();
 }

@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finn.mapper.RoleMapper">
+    <resultMap id="RolePermissionMap" type="com.finn.dto.ResourceRoleDTO">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="request_method" property="requestMethod"/>
+        <collection property="roleList" ofType="java.lang.String">
+            <constructor>
+                <arg column="role_name"/>
+            </constructor>
+        </collection>
+    </resultMap>
+
     <select id="getUserRoleSelectList" resultType="com.finn.dto.RoleSelectListDTO">
         <!-- 查询出来的列名要和对象里的属性名一致 -->
         select role_name as roleName, count(1) as roleNums
         from tb_role r
         group by r.role_name;
+    </select>
+
+    <select id="listResourceRoles" resultMap="RolePermissionMap">
+        SELECT
+            re.id,
+            url,
+            request_method,
+            role_name
+        FROM
+            tb_resource re
+                LEFT JOIN tb_role_resource rep on re.id = rep.resource_id
+                LEFT JOIN tb_role r on rep.role_id = r.id
+        WHERE
+            parent_id is NOT NULL
+          AND is_anonymous = 0
+    </select>
+
+    <select id="listRolesByUserInfoId" resultType="java.lang.String">
+        SELECT
+            role_name
+        FROM
+            tb_role r,
+            tb_user_role ur
+        WHERE
+            r.id = ur.role_id
+          AND ur.user_id = #{userInfoId}
     </select>
 </mapper>

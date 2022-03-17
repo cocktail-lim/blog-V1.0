@@ -1,16 +1,17 @@
 package com.finn.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.finn.dto.ArticleContentDTO;
-import com.finn.dto.ArticleListPageBackDTO;
-import com.finn.dto.ArticlePreviewPageDTO;
+import com.finn.dto.*;
 import com.finn.entity.IPage;
 import com.finn.entity.Article;
 import com.finn.entity.ArticleTag;
+import com.finn.exception.GlobalException;
+import com.finn.exception.MyRuntimeException;
 import com.finn.mapper.ArticleMapper;
 import com.finn.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.finn.service.ArticleTagService;
+import com.finn.utils.BeanCopyUtils;
 import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleVO;
 import com.finn.vo.DeleteVO;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -38,6 +40,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private ArticleService articleService;
     @Autowired
     private ArticleTagService articleTagService;
+    @Autowired
+    private ArticleMapper articleMapper;
 
     /* 
     * @Description: 保存或修改文章 
@@ -91,7 +95,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     * @Date: 2022/02/05 19:59
     */
     @Override
-    public Long countArticleBack(Boolean isShowPage) {
+    public Integer countArticleBack(Boolean isShowPage) {
         return this.baseMapper.countArticleBack(isShowPage);
     }
 
@@ -168,13 +172,57 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     /* 
     * @Description: 展示文章内容 
     * @Param: [articleId] 
-    * @return: java.util.List<com.finn.dto.ArticleContentDTO> 
+    * @return: java.util.List<com.finn.dto.ArticleDTO>
     * @Author: Finn
     * @Date: 2022/02/05 21:42
     */
     @Override
-    public ArticleContentDTO showArticleContent(Integer articleId) {
-        return this.baseMapper.showArticleContent(articleId);
+    public ArticleDTO getArticleById(Integer articleId) {
+
+        CompletableFuture<List<ArticleRecommendDTO>> recommendArticleList = CompletableFuture
+                .supplyAsync(() -> articleMapper.listRecommendArticles(articleId));
+        // 查询最新文章
+        CompletableFuture<List<ArticleRecommendDTO>> newestArticleList = CompletableFuture
+                .supplyAsync(() -> {
+                    List<Article> articleList = articleMapper.selectList(new LambdaQueryWrapper<Article>()
+                            .select(Article::getId, Article::getArticleTitle, Article::getArticleCover, Article::getCreateTime)
+                            .eq(Article::getIsDelete, 0)
+                            .orderByDesc(Article::getId)
+                            .last("limit 5"));
+                    return BeanCopyUtils.copyList(articleList, ArticleRecommendDTO.class);
+                });
+        // 查询id对应文章
+        ArticleDTO articleDTO = articleMapper.getArticleById(articleId);
+        if (Objects.isNull(articleDTO)) {
+            throw new MyRuntimeException("文章不存在");
+        }
+        // 更新文章浏览量
+        /* 更新浏览量操作 */
+        // 查询上一篇下一篇文章
+        Article preArticle = articleMapper.selectOne(new LambdaQueryWrapper<Article>()
+                .select(Article::getId, Article::getArticleTitle, Article::getArticleCover)
+                .eq(Article::getIsDelete, 0)
+                .lt(Article::getId, articleId)
+                .orderByDesc(Article::getId)
+                .last("limit 1"));
+        Article nextArticle = articleMapper.selectOne(new LambdaQueryWrapper<Article>()
+                .select(Article::getId, Article::getArticleTitle, Article::getArticleCover)
+                .eq(Article::getIsDelete, 0)
+                .gt(Article::getId, articleId)
+                .orderByAsc(Article::getId)
+                .last("limit 1"));
+        articleDTO.setPreArticle(BeanCopyUtils.copyObject(preArticle, ArticlePaginationDTO.class));
+        articleDTO.setNextArticle(BeanCopyUtils.copyObject(nextArticle, ArticlePaginationDTO.class));
+        // 封装点赞量和浏览量
+        articleDTO.setViewsCount(0);
+        // 封装文章信息
+        try {
+            articleDTO.setRecommendArticleList(recommendArticleList.get());
+            articleDTO.setNewestArticleList(newestArticleList.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return articleDTO;
     }
 
     /*

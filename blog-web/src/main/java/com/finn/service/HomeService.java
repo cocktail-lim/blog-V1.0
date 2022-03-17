@@ -1,7 +1,5 @@
 package com.finn.service;
 
-import com.finn.dto.HomeInfoDTO;
-
 /*
  * @description: 首页
  * @author: Finn
@@ -9,5 +7,4 @@ import com.finn.dto.HomeInfoDTO;
  */
 public interface HomeService {
 
-    HomeInfoDTO getHomeInfo();
 }

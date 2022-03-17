@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class WebsiteConfigServiceImpl extends ServiceImpl<WebsiteConfigMapper, WebsiteConfig> implements WebsiteConfigService {
 
+    @Override
+    public String getConfig() {
+        return this.baseMapper.getConfig();
+    }
 }

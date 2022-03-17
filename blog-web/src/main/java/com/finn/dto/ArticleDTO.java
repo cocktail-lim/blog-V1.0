@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -19,10 +16,11 @@ import java.util.List;
  */
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "ArticleContentDTO", description = "展示页文章内容")
-public class ArticleContentDTO {
+@ApiModel(value = "ArticleDTO", description = "展示页文章内容")
+public class ArticleDTO {
 
     @ApiModelProperty("文章主键id")
     @TableId(type = IdType.AUTO)
@@ -34,6 +32,9 @@ public class ArticleContentDTO {
     @ApiModelProperty("文章内容")
     private String articleContent;
 
+    @ApiModelProperty("文章内容")
+    private String articleCover;
+
     @ApiModelProperty("分类名")
     private String categoryName;
 
@@ -43,6 +44,21 @@ public class ArticleContentDTO {
     @ApiModelProperty("更新时间")
     private Date updateTime;
 
-    @ApiModelProperty("标签Id")
+    @ApiModelProperty("标签列表")
     private List<TagDTO> tagList;
+
+    @ApiModelProperty("浏览量")
+    private Integer viewsCount;
+
+    @ApiModelProperty("上一篇文章")
+    private ArticlePaginationDTO preArticle;
+
+    @ApiModelProperty("下一篇文章")
+    private ArticlePaginationDTO nextArticle;
+
+    @ApiModelProperty("推荐文章")
+    private List<ArticleRecommendDTO> recommendArticleList;
+
+    @ApiModelProperty("最新")
+    private List<ArticleRecommendDTO> newestArticleList;
 }

@@ -27,10 +27,11 @@
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
-    <resultMap id="showArticleContentMap" type="com.finn.dto.ArticleContentDTO">
+    <resultMap id="getArticleByIdMap" type="com.finn.dto.ArticleDTO">
         <id column="id" property="id"/>
         <result column="article_title" property="articleTitle"/>
         <result column="article_content" property="articleContent"/>
+        <result column="article_cover" property="articleCover"/>
         <result column="category_name" property="categoryName"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -40,7 +41,7 @@
         </collection>
     </resultMap>
 
-    <select id="countArticleBack" resultType="java.lang.Long">
+    <select id="countArticleBack" resultType="java.lang.Integer">
         SELECT count(*) from tb_article
         <where>
             <if test="isShowPage == true">
@@ -137,11 +138,12 @@
         ORDER BY is_top DESC, a.id DESC
     </select>
 
-    <select id="showArticleContent"  resultMap="showArticleContentMap">
+    <select id="getArticleById" resultMap="getArticleByIdMap">
         select
             a.id,
             a.article_title,
             a.article_content,
+            a.article_cover,
             c.category_name,
             a.create_time,
             a.update_time,
@@ -154,5 +156,24 @@
         and ata.tag_id = t.id
         and a.category_id = c.id
         and a.id = #{articleId}
+    </select>
+    <select id="listRecommendArticles" resultType="com.finn.dto.ArticleRecommendDTO">
+        select a.id, a.article_cover, a.article_title, a.create_time
+        from
+            (
+                select distinct article_id
+                from
+                    (
+                        select tag_id
+                        from tb_article_tag
+                        where article_id = #{articleId}
+                    ) t
+                        join tb_article_tag at
+                where at.tag_id = t.tag_id
+            ) tt
+                join tb_article a
+        where tt.article_id = a.id
+        order by a.is_top desc, a.id desc
+            limit 6
     </select>
 </mapper>

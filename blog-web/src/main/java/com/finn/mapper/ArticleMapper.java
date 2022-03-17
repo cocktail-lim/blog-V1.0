@@ -1,12 +1,12 @@
 package com.finn.mapper;
 
-import com.finn.dto.ArticleContentDTO;
+import com.finn.dto.ArticleDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
+import com.finn.dto.ArticleRecommendDTO;
 import com.finn.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.finn.vo.ArticleListVO;
-import com.finn.vo.DeleteVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,13 +24,13 @@ import java.util.List;
 public interface ArticleMapper extends BaseMapper<Article> {
 
     /* 
-    * @Description: 获取前/后台文章总数 前台：isShowPage为true， 后台：isShowPage为false
+    * @Description: 获取前/后台文章总数 blog页：isShowPage为true， admin：isShowPage为false
     * @Param: [isShowPage]
     * @return: long 
     * @Author: Finn
     * @Date: 2022/02/05 19:59
     */
-    Long countArticleBack(@Param("isShowPage") Boolean isShowPage);
+    Integer countArticleBack(@Param("isShowPage") Boolean isShowPage);
 
     /*
     * @Description: 根据 articleListVO 获取文章列表
@@ -62,9 +62,18 @@ public interface ArticleMapper extends BaseMapper<Article> {
     /*
     * @Description: 展示文章内容
     * @Param: [articleId]
-    * @return: java.util.List<com.finn.dto.ArticleContentDTO>
+    * @return: java.util.List<com.finn.dto.ArticleDTO>
     * @Author: Finn
     * @Date: 2022/02/05 21:43
     */
-    ArticleContentDTO showArticleContent(@Param("articleId") Integer articleId);
+    ArticleDTO getArticleById(@Param("articleId") Integer articleId);
+
+    /* 
+    * @Description: 获取推荐文章list
+    * @Param: [articleId] 
+    * @return: java.util.List<com.finn.dto.ArticleRecommendDTO> 
+    * @Author: Finn
+    * @Date: 2022/03/07 21:53
+    */
+    List<ArticleRecommendDTO> listRecommendArticles(Integer articleId);
 }

@@ -1,6 +1,6 @@
 package com.finn.service;
 
-import com.finn.dto.ArticleContentDTO;
+import com.finn.dto.ArticleDTO;
 import com.finn.dto.ArticleListPageBackDTO;
 import com.finn.dto.ArticlePreviewPageDTO;
 import com.finn.entity.IPage;
@@ -38,7 +38,7 @@ public interface ArticleService extends IService<Article> {
     * @Author: Finn
     * @Date: 2022/02/05 19:59
     */
-    Long countArticleBack(Boolean isShowPage);
+    Integer countArticleBack(Boolean isShowPage);
 
     /*
     * @Description: 获取后台文章列表 List
@@ -93,7 +93,7 @@ public interface ArticleService extends IService<Article> {
    * @Author: Finn
    * @Date: 2022/02/05 21:35
    */
-   ArticleContentDTO showArticleContent(Integer articleId);
+   ArticleDTO getArticleById(Integer articleId);
 
    /*
    * @Description: 逻辑删除和恢复文章

@@ -1,8 +1,7 @@
 package com.finn.controller;
 
 import com.finn.enums.ResultEnums;
-import com.finn.service.HomeService;
-import com.finn.service.PageService;
+import com.finn.service.BlogInfoService;
 import com.finn.utils.Result;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 
 /*
  * @description:
@@ -18,15 +16,15 @@ import java.util.Map;
  * @create: 2022/02/06 20:43
  */
 @RestController
-@ApiModel(value = "首页信息")
-public class HomeController {
+@ApiModel(value = "BlogInfoController")
+public class BlogInfoController {
 
     @Autowired
-    private HomeService homeService;
+    private BlogInfoService blogInfoService;
 
-    @ApiOperation(value = "根据角色获取展示菜单列表")
-    @GetMapping("/api/home")
-    public Result getHome() {
-        return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("homeInfo", homeService.getHomeInfo());
+    @ApiOperation(value = "或者博客信息")
+    @GetMapping("/api")
+    public Result getBlogInfo() {
+        return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("blogInfo", blogInfoService.getBlogInfo());
     }
 }

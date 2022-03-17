@@ -11,6 +11,7 @@ import com.finn.vo.ArticleListVO;
 import com.finn.vo.ArticleTopVO;
 import com.finn.vo.ArticleVO;
 import com.finn.vo.DeleteVO;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,16 +28,17 @@ import java.util.ArrayList;
  * @since 2022-02-03
  */
 @RestController
+@ApiModel(value = "ArticleController")
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
 
-    @ApiOperation(value = "获取文章")
-    @GetMapping(value = "/api/article/getArticle")
-    public Result getArticle() {
-        return Result.success();
-    }
+//    @ApiOperation(value = "获取文章")
+//    @GetMapping(value = "/api/article/getArticle")
+//    public Result getArticle() {
+//        return Result.success();
+//    }
 
     @ApiOperation(value = "添加或修改文章")
     @PostMapping("/api/admin/article/saveOrUpdateArticle")
@@ -75,7 +77,7 @@ public class ArticleController {
         return Result.success().codeAndMessage(ResultEnums.SUCCESS);
     }
 
-    @ApiOperation(value = "获取展示页文章列表")
+    @ApiOperation(value = "获取blog页文章列表")
     @GetMapping(value = "/api/article/listArticlePreviewPage")
     public Result listArticlePreviewPage(ArticleListVO articleListVO) {
         IPage<ArticlePreviewPageDTO> IPage = articleService.listArticlePreviewPageDTO(articleListVO);
@@ -85,13 +87,13 @@ public class ArticleController {
             return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("articleList", new ArrayList(0)).data("total", IPage.getTotal());
     }
 
-    @ApiOperation(value = "获取展示页文章内容")
-    @GetMapping(value = "/api/article/showArticleContent")
-    public Result showArticleContent(@RequestParam Integer articleId) {
+    @ApiOperation(value = "获取blog页文章内容")
+    @GetMapping(value = "/api/article/getArticleById")
+    public Result getArticleById(@RequestParam Integer articleId) {
         return Result
                 .success()
                 .codeAndMessage(ResultEnums.SUCCESS)
-                .data("articleContent", articleService.showArticleContent(articleId));
+                .data("articleDetails", articleService.getArticleById(articleId));
     }
 
 }

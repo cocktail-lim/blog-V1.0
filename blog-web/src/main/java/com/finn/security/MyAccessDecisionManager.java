@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * @description: 自定义权限管理器 鉴权
@@ -31,26 +33,37 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        /*
-        * configAttributes: MySecurityMetadataSource提供请求的url所需的身份信息
-        * authentication: 在UserDetailsImpl中放入的用户role信息
-        */
-        // 该url不需要任何身份，直接放行
-        if(configAttributes == null) {
-            return;
-        }
-        Iterator<ConfigAttribute> iterator = configAttributes.iterator();
-        while (iterator.hasNext()) {
-            // 需要的身份信息
-            ConfigAttribute c = iterator.next();
-            String needAuth = c.getAttribute();
-            // 获取用户权限
-            for(GrantedAuthority ga : authentication.getAuthorities()) {
-                if(needAuth.trim().equals(ga.getAuthority()))
-                    return;
+//        /*
+//        * configAttributes: MySecurityMetadataSource提供请求的url所需的身份信息
+//        * authentication: 在UserDetailsImpl中放入的用户role信息
+//        */
+//        // 该url不需要任何身份，直接放行
+//        if(configAttributes == null) {
+//            return;
+//        }
+//        Iterator<ConfigAttribute> iterator = configAttributes.iterator();
+//        while (iterator.hasNext()) {
+//            // 需要的身份信息
+//            ConfigAttribute c = iterator.next();
+//            String needAuth = c.getAttribute();
+//            // 获取用户权限
+//            for(GrantedAuthority ga : authentication.getAuthorities()) {
+//                if(needAuth.trim().equals(ga.getAuthority()))
+//                    return;
+//            }
+//        }
+//        throw new MyAccessDeniedException("没有权限访问！");
+        // 获取用户权限列表
+        List<String> permissionList = authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        for (ConfigAttribute item : configAttributes) {
+            if (permissionList.contains(item.getAttribute())) {
+                return;
             }
         }
-        throw new MyAccessDeniedException("没有权限访问！");
+        throw new AccessDeniedException("没有操作权限");
     }
 
     @Override

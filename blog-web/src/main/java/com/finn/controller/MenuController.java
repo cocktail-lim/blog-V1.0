@@ -5,6 +5,7 @@ import com.finn.enums.ResultEnums;
 import com.finn.service.MenuService;
 import com.finn.utils.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022-01-20
  */
 @RestController
-@Api(tags = "菜单展示模块")
+@ApiModel(value = "菜单展示模块")
 public class MenuController {
     @Autowired
     MenuService menuService;

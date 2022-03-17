@@ -32,6 +32,7 @@
         <fastjson.version>1.2.79</fastjson.version>
         <jwt.version>3.18.3</jwt.version>
         <jakarta.version>2.0.2</jakarta.version>
+        <useragentutils.version>1.20</useragentutils.version>
     </properties>
 
     <!--统一依赖管理-->
@@ -104,6 +105,11 @@
                 <groupId>jakarta.validation</groupId>
                 <artifactId>jakarta.validation-api</artifactId>
                 <version>${jakarta.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${useragentutils.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
