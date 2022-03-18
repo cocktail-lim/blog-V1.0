@@ -27,4 +27,13 @@ public interface BlogInfoService {
     * @Date: 2022/03/04 23:04
     */
     WebsiteConfigVO getWebsiteConfig();
+
+    /*
+    * @Description: 上传访客信息
+    * @Param: []
+    * @return: void
+    * @Author: Finn
+    * @Date: 2022/03/17 20:48
+    */
+    void report();
 }

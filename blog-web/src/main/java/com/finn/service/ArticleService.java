@@ -66,7 +66,7 @@ public interface ArticleService extends IService<Article> {
     * @Author: Finn
     * @Date: 2022/02/04 21:12
     */
-   void topArticleById(Integer articleId, Boolean isTop);
+   void topArticleById(Integer articleId, Integer isTop);
 
     /*
      * @Description: 获取展示页文章列表

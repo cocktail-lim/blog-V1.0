@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SessionController {
 
-    @GetMapping(value = "/api/session/invalid")
+    @GetMapping(value = "/session/invalid")
     public Result sessionInvalid(){
         return Result.error().codeAndMessage("669", "Session已过期，请重新登陆");
     }

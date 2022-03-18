@@ -1,16 +1,15 @@
 package com.finn.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.finn.dto.MenuDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,34 +20,46 @@ import lombok.experimental.Accessors;
  * @author finn
  * @since 2022-01-20
  */
-@Getter
-@Setter
-@Accessors(chain = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("tb_menu")
 @ApiModel(value = "Menu", description = "后台管理左侧菜单")
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "//后台菜单id")
+    @ApiModelProperty(value = "后台菜单id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "//菜单列表名字")
-    private String menuName;
+    @ApiModelProperty(value = "菜单列表名字")
+    private String name;
 
-    @ApiModelProperty(value = "//菜单的url")
-    private String menuUrl;
+    @ApiModelProperty(value = "菜单的path")
+    private String path;
 
-    @ApiModelProperty(value = "//菜单的父ID")
+    @ApiModelProperty(value = "菜单的component")
+    private String component;
+
+    @ApiModelProperty(value = "菜单图标")
+    private String icon;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
+
+    @ApiModelProperty(value = "排序")
+    private Integer orderNum;
+
+    @ApiModelProperty(value = "父菜单")
     private Integer parentId;
 
-    @ApiModelProperty(value = "//菜单排序")
-    private Integer menuSort;
-
-    @ApiModelProperty(value = "//描述")
-    private String description;
-
-    @ApiModelProperty(value = "//菜单图标")
-    private String menuIcon;
+    @ApiModelProperty(value = "是否隐藏")
+    private Integer isHidden;
 }

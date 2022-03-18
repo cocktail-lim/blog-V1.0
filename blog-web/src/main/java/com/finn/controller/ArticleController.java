@@ -35,7 +35,7 @@ public class ArticleController {
     private ArticleService articleService;
 
 //    @ApiOperation(value = "获取文章")
-//    @GetMapping(value = "/api/article/getArticle")
+//    @GetMapping(value = "/article/getArticle")
 //    public Result getArticle() {
 //        return Result.success();
 //    }
@@ -58,7 +58,7 @@ public class ArticleController {
     }
 
     @ApiOperation(value = "根据文章id置顶文章")
-    @PostMapping(value = "/api/admin/article/topArticleById")
+    @PutMapping(value = "/api/admin/article/topArticleById")
     public Result topArticleById(@Valid @RequestBody ArticleTopVO articleTopVO) {
         articleService.topArticleById(articleTopVO.getArticleId(), articleTopVO.getIsTop());
         return Result.success().codeAndMessage(ResultEnums.SUCCESS);

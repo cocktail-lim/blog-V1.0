@@ -29,8 +29,8 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @ApiOperation("获取文章Tag")
-    @GetMapping("/api/admin/tag/getTag")
+    @ApiOperation("获取所有Tag")
+    @GetMapping("/api/tag/getTag")
     public Result getTagList() {
         List<Tag> tagList = tagService.list();
         if(!tagList.isEmpty()) {
@@ -39,4 +39,10 @@ public class TagController {
             return Result.error().codeAndMessage(ResultEnums.NO_DATA_FOUND);
         }
     }
+
+//    @ApiOperation("根据文章搜索Tag")
+//    @GetMapping("/api/admin/getTagsBy")
+//    public Result getTagsByArticle() {
+//
+//    }
 }

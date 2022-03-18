@@ -1,14 +1,19 @@
 package com.finn.controller;
 
 
+import com.finn.dto.MenuDTO;
 import com.finn.enums.ResultEnums;
 import com.finn.service.MenuService;
 import com.finn.utils.Result;
+import com.finn.vo.ConditionVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -25,8 +30,8 @@ public class MenuController {
     MenuService menuService;
 
     @ApiOperation(value = "根据角色获取展示菜单列表")
-    @GetMapping("/api/admin/getMenus") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
-    public Result getMenuByRoleName(@RequestParam String roleName){
-        return new Result().success().codeAndMessage(ResultEnums.SUCCESS).data("menuList", menuService.getMenuListByRoleName(roleName));
+    @GetMapping("/api/admin/getMenuList") // GetMapping是这样定义的：@RequestMapping( method = {RequestMethod.GET})
+    public Result getMenuList(ConditionVO conditionVO){
+        return new Result().success().codeAndMessage(ResultEnums.SUCCESS).data("menuList", menuService.getMenuList(conditionVO));
     }
 }

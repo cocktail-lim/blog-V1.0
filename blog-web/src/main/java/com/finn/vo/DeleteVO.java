@@ -21,5 +21,5 @@ public class DeleteVO {
     private List<Integer> idList;
 
     /*是否将逻辑删除置为1*/
-    private Boolean isDelete;
+    private Integer isDelete;
 }

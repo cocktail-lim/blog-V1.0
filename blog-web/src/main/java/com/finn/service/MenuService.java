@@ -3,6 +3,7 @@ package com.finn.service;
 import com.finn.dto.MenuDTO;
 import com.finn.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.finn.vo.ConditionVO;
 import io.swagger.annotations.Api;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,15 @@ import java.util.List;
 public interface MenuService extends IService<Menu> {
 
     /*
+     * @Description: 获取 menu
+     * @Param:ss
+     * @return:
+     * @Author: Finn
+     * @Date: 2022/1/21
+     */
+    List<MenuDTO> getMenuList(ConditionVO conditionVO);
+
+    /*
     * @Description: 根据用户角色来获取 menu
     * @Param:ss
     * @return:
@@ -26,5 +36,4 @@ public interface MenuService extends IService<Menu> {
     * @Date: 2022/1/21
     */
     List<MenuDTO> getMenuListByRoleName(String roleName);
-
 }

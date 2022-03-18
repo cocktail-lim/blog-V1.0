@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -22,9 +23,16 @@ public class BlogInfoController {
     @Autowired
     private BlogInfoService blogInfoService;
 
-    @ApiOperation(value = "或者博客信息")
+    @ApiOperation(value = "获取博客信息")
     @GetMapping("/api")
     public Result getBlogInfo() {
         return Result.success().codeAndMessage(ResultEnums.SUCCESS).data("blogInfo", blogInfoService.getBlogInfo());
+    }
+
+    @ApiOperation(value = "上传访客信息")
+    @PostMapping("/api/report")
+    public Result report() {
+        blogInfoService.report();
+        return Result.success();
     }
 }

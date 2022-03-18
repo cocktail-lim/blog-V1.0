@@ -12,5 +12,5 @@ public class ArticleTopVO {
 
     private Integer articleId;
 
-    private Boolean isTop;
+    private Integer isTop;
 }

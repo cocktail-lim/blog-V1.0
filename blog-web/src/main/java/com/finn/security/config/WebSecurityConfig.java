@@ -101,56 +101,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(myLogoutSuccessHandler);
-        http.cors()
-            .and()
-            .csrf()
-            .disable()
-            .authorizeRequests()    // 授权配置
-            .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-                @Override
-                public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-                    fsi.setSecurityMetadataSource(securityMetadataSource());
-                    fsi.setAccessDecisionManager(accessDecisionManager());
-                    return fsi;
-                }
-            })
-            .requestMatchers(CorsUtils::isPreFlightRequest)
-            .permitAll()
-            .antMatchers("/session/invalid")
-            .permitAll()       // 无需认证的请求路径
-            .anyRequest()       // 任何请求
-            .authenticated();
-//            .and()
-//            .formLogin()
-//            .loginProcessingUrl("/login")
-//            .successHandler(myAuthenticationSuccessHandler)
-//            .failureHandler(myAuthenticationFailureHandler)
-//            .and()
-//            .logout()
-//            .logoutUrl("/logout")
-//            .logoutSuccessHandler(myLogoutSuccessHandler);//都需要身份认证
-//        // 配置路由权限信息
-//        http.authorizeRequests()
-//                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//                    @Override
-//                    public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-//                        fsi.setSecurityMetadataSource(securityMetadataSource());
-//                        fsi.setAccessDecisionManager(accessDecisionManager());
-//                        return fsi;
-//                    }
-//                })
-//                .anyRequest()
-//                .authenticated()
-////                .permitAll()
-//                .and()
-//                .cors()
-//                .and()
-//                // 关闭跨站请求防护
-//                .csrf().disable().exceptionHandling()
-//                // 未登录处理
-//                .authenticationEntryPoint(myAuthenticationEntryPoint)
-//                // 权限不足处理
-//                .accessDeniedHandler(myAccessDeniedHandler)
+        // 配置路由权限信息
+        http.authorizeRequests()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
+                        fsi.setSecurityMetadataSource(securityMetadataSource());
+                        fsi.setAccessDecisionManager(accessDecisionManager());
+                        return fsi;
+                    }
+                })
+                .anyRequest().permitAll()
+                .and()
+                .cors()
+                .and()
+                // 关闭跨站请求防护
+                .csrf().disable().exceptionHandling()
+                // 未登录处理
+                .authenticationEntryPoint(myAuthenticationEntryPoint)
+                // 权限不足处理
+                .accessDeniedHandler(myAccessDeniedHandler);
 //                .and()
 //                .sessionManagement()
 //                .maximumSessions(20)
@@ -171,27 +141,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .passwordEncoder(passwordEncoder());
     }
 
-    /*
-     * @Description: 跨域过滤器
-     * @Param: []
-     * @return: 一个跨域过滤器
-     * @Author: Finn
-     * @Date: 2022/1/19
-     */
-    @Bean
-    CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration configuration = new CorsConfiguration();
-        //允许从跨域
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8091"));
-        //允许使用GET方法和POST方法
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE"));
-        //允许带凭证
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        //对所有URL生效
-        source.registerCorsConfiguration("/**",configuration);
-        return source;
-    }
+//    /*
+//     * @Description: 跨域过滤器
+//     * @Param: []
+//     * @return: 一个跨域过滤器
+//     * @Author: Finn
+//     * @Date: 2022/1/19
+//     */
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8090", "http://localhost:8091"));
+//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//}
 
 //    /*
 //     * @Description: 跨域过滤器
@@ -201,7 +166,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //     * @Date: 2022/1/19
 //     */
 //    @Bean
-//    public CorsFilter corsFilter() {
+//        public CorsFilter corsFilter() {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //
 //        CorsConfiguration corsConfiguration = new CorsConfiguration();

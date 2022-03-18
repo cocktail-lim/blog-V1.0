@@ -36,10 +36,10 @@ public class ArticleListPageBackDTO {
     private String categoryName;
 
     @ApiModelProperty("是否置顶 0：不置顶 1：置顶")
-    private Boolean isTop;
+    private Integer isTop;
 
     @ApiModelProperty("是否草稿 0：不是草稿 1:草稿")
-    private Boolean isDraft;
+    private Integer isDraft;
 
     @ApiModelProperty("创建时间")
     private Date createTime;

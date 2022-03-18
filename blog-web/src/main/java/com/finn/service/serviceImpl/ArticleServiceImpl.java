@@ -137,7 +137,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     * @Date: 2022/02/05 16:23
     */
     @Override
-    public void topArticleById(Integer articleId, Boolean isTop) {
+    public void topArticleById(Integer articleId, Integer isTop) {
+//        Article article = Article.builder().id(articleId).isTop(isTop).build();
+//        this.articleMapper.updateById(article);
         this.baseMapper.topArticleById(articleId, isTop);
     }
 
@@ -238,7 +240,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .stream()
                 .map(id -> Article.builder()
                         .id(id)
-                        .isTop(false)
+                        .isTop(0)
                         .isDelete(deleteVO.getIsDelete())
                         .build()
                 ).collect(Collectors.toList());

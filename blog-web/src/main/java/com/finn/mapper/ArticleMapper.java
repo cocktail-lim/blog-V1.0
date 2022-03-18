@@ -48,7 +48,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     * @Author: Finn
     * @Date: 2022/02/04 21:15
     */
-    void topArticleById(@Param("articleId") Integer articleId, @Param("isTop") Boolean isTop);
+    void topArticleById(@Param("articleId") Integer articleId, @Param("isTop") Integer isTop);
 
     /* 
     * @Description: 获取展示页文章列表
